@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import converters.CFConverter;
+import converters.TemperatureConverter;
+
 /**
  * The application's user interface
  * @author GRV96
@@ -16,13 +19,16 @@ import javax.swing.JPanel;
 public class ConvFrame extends JFrame {
 	
 	// Recieves the temperature to convert.
-	private IOPanel inputPanel;
+	private InputPanel inputPanel;
 	
 	// Displays the converted temperature.
-	private IOPanel outputPanel;
+	private OutputPanel outputPanel;
 	
 	// Button that launches the conversion
 	private JButton convBtn;
+	
+	// Object that performs the conversion
+	private TemperatureConverter tc;
 	
 	/**
 	 * Constructor
@@ -33,7 +39,6 @@ public class ConvFrame extends JFrame {
 		setSize(500, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		buildContentPane();
 		setVisible(true);
 	}
@@ -53,7 +58,9 @@ public class ConvFrame extends JFrame {
 		convBtn.addActionListener(new ConversionListener());
 		cp.add(convBtn);
 		
+		tc = new CFConverter();
 		outputPanel = new OutputPanel();
+		outputPanel.displayTemp(tc.convert(-40));
 		cp.add(outputPanel);
 		
 		setContentPane(cp);

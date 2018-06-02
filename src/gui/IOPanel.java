@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Rectangle;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,9 +23,18 @@ public abstract class IOPanel extends JPanel {
 		
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		ioField = new JTextField();
-		ioField.setVisible(true);
+		ioField.setSize(300, 20);
 		menu = new ScaleMenu();
 		add(ioField);
 		add(menu);
+	}
+	
+	/**
+	 * Gets the scale chosen by the user.
+	 * @return a string that represents the scale
+	 */
+	public String getScale() {
+		
+		return (String) menu.getSelectedItem();
 	}
 }

@@ -14,6 +14,9 @@ public class ScaleMenu extends JComboBox<String> {
 	public static final String KELVIN = "K";
 	private static final String[] SCALES = {DEG_C, DEG_F, KELVIN};
 	
+	/**
+	 * Constructor
+	 */
 	public ScaleMenu() {
 		
 		super(SCALES);
