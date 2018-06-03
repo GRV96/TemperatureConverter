@@ -1,7 +1,6 @@
 package gui;
 
-import java.awt.Rectangle;
-
+import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,11 +18,11 @@ public abstract class IOPanel extends JPanel {
 	/**
 	 * Constructor
 	 */
-	public IOPanel() {
+	public IOPanel(int width, int height) {
 		
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		setMaximumSize(new Dimension(width, height));
 		ioField = new JTextField();
-		ioField.setSize(300, 20);
 		menu = new ScaleMenu();
 		add(ioField);
 		add(menu);

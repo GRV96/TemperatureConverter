@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import converters.CFConverter;
@@ -17,24 +19,21 @@ import converters.TemperatureConverter;
  *
  */
 public class ConvFrame extends JFrame {
-	
+
 	// Recieves the temperature to convert.
 	private InputPanel inputPanel;
-	
+
 	// Displays the converted temperature.
 	private OutputPanel outputPanel;
-	
+
 	// Button that launches the conversion
 	private JButton convBtn;
-	
-	// Object that performs the conversion
-	private TemperatureConverter tc;
-	
+
 	/**
 	 * Constructor
 	 */
 	public ConvFrame() {
-		
+
 		setTitle("Temperature Converter");
 		setSize(500, 600);
 		setLocationRelativeTo(null);
@@ -42,45 +41,53 @@ public class ConvFrame extends JFrame {
 		buildContentPane();
 		setVisible(true);
 	}
-	
+
 	/**
 	 * Assembles the interface's components: input and output fields, menus and button.
 	 */
 	private void buildContentPane() {
 		
+		int ioFieldHeight = 40;
+
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
-		
-		inputPanel = new InputPanel();
+		cp.setAlignmentX(CENTER_ALIGNMENT);
+
+		inputPanel = new InputPanel(getWidth(), ioFieldHeight);
 		cp.add(inputPanel);
-		
+
 		convBtn = new JButton("Convert");
 		convBtn.addActionListener(new ConversionListener());
 		cp.add(convBtn);
-		
-		tc = new CFConverter();
-		outputPanel = new OutputPanel();
-		outputPanel.displayTemp(tc.convert(-40));
+
+		outputPanel = new OutputPanel(getWidth(), ioFieldHeight);
 		cp.add(outputPanel);
 		
+		ImageIcon image = new ImageIcon("thermometer.jpg");
+		JLabel imageLabel = new JLabel(image);
+		cp.add(imageLabel);
+
 		setContentPane(cp);
 	}
 
 	public static void main(String[] args) {
-		
+
 		JFrame f = new ConvFrame();
 	}
-	
+
 	/**
-	 * Action listner for the conversion button
+	 * Action listener for the conversion button
 	 * @author GRV96
 	 *
 	 */
 	private class ConversionListener implements ActionListener{
 
+		// Object that performs the conversion
+		private TemperatureConverter tc;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			//
 		}
 	}

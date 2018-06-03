@@ -11,7 +11,7 @@ public class ConverterTests {
 	@Test
 	public void CFTest() {
 		
-		// Instanciates a Celsius to Farenheit converter.
+		// Instantiates a Celsius to Farenheit converter.
 		tc = new CFConverter();
 		
 		assertTrue(tc.convert(-40) == -40);
@@ -21,8 +21,14 @@ public class ConverterTests {
 	}
 	
 	@Test
-	public void FCTests() {
+	public void CKTests() {
 		
-		//
+		// Instantiates a Celsius to kelvin converter.
+		tc = new CKConverter();
+		
+		System.out.println(""+tc.convert(0));
+		
+		assertTrue(tc.convert(0) == 273.15);
+		assertTrue(tc.convert(100) == 373.15);
 	}
 }

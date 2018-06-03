@@ -5,9 +5,9 @@ public class OutputPanel extends IOPanel
 	/**
 	 * Constructor
 	 */
-	public OutputPanel()
+	public OutputPanel(int width, int height)
 	{
-		super();
+		super(width, height);
 		ioField.setEditable(false);
 	}
 	
