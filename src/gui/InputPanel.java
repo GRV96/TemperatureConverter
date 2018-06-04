@@ -10,4 +10,13 @@ public class InputPanel extends IOPanel {
 		super(width, height);
 		ioField.setEditable(true);
 	}
+	
+	/**
+	 * Accesses the input temperature.
+	 * @return the input temperature
+	 */
+	public double getInputTemperature() {
+		
+		return Double.parseDouble(ioField.getText());
+	}
 }

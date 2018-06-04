@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import converters.CFConverter;
+import convcreators.ConverterFactory;
 import converters.TemperatureConverter;
 
 /**
@@ -51,7 +51,6 @@ public class ConvFrame extends JFrame {
 
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
-		cp.setAlignmentX(CENTER_ALIGNMENT);
 
 		inputPanel = new InputPanel(getWidth(), ioFieldHeight);
 		cp.add(inputPanel);
@@ -82,13 +81,20 @@ public class ConvFrame extends JFrame {
 	 */
 	private class ConversionListener implements ActionListener{
 
-		// Object that performs the conversion
-		private TemperatureConverter tc;
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			//
+			// Object that performs the conversion
+			TemperatureConverter tc = ConverterFactory.
+					createConverter(inputPanel.getScale(), outputPanel.getScale());
+			
+			// The input temperature
+			double inputTemp = inputPanel.getInputTemperature();
+			
+			// The output Temperature
+			double outputTemp = tc.convert(inputTemp);
+			
+			outputPanel.displayTemp(outputTemp);
 		}
 	}
 }
