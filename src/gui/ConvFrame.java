@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -80,21 +81,46 @@ public class ConvFrame extends JFrame {
 	 *
 	 */
 	private class ConversionListener implements ActionListener{
+		
+		// Object that performs the conversion
+		TemperatureConverter tc;
+		
+		// Input temperatue scale
+		String inputScale = "";
+		
+		// Output temperature scale
+		String outputScale = "";
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
-			// Object that performs the conversion
-			TemperatureConverter tc = ConverterFactory.
-					createConverter(inputPanel.getScale(), outputPanel.getScale());
 			
+			// Current input and output scales
+			String iScale = inputPanel.getScale();
+			String oScale = outputPanel.getScale();
+			
+			// If the input or output scale has changed, a new converter is instantiated.
+			if(!inputScale.equals(iScale) || !outputScale.equals(oScale)) {
+				
+				inputScale = iScale;
+				outputScale = oScale;
+				tc = ConverterFactory.createConverter(inputScale, outputScale);
+			}
+			
+			try {
+				
 			// The input temperature
 			double inputTemp = inputPanel.getInputTemperature();
 			
-			// The output Temperature
+			// The output temperature
 			double outputTemp = tc.convert(inputTemp);
 			
 			outputPanel.displayTemp(outputTemp);
+			}
+			
+			catch(java.lang.NumberFormatException nfe) {
+				
+				// Do nothing. Conversion is impossible.
+			}
 		}
 	}
 }

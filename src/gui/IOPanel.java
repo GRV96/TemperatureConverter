@@ -17,11 +17,13 @@ public abstract class IOPanel extends JPanel {
 
 	/**
 	 * Constructor
+	 * @param width
+	 * @param height
 	 */
 	public IOPanel(int width, int height) {
 		
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-		setMaximumSize(new Dimension(width, height));
+		setPreferredSize(new Dimension(width, height));
 		ioField = new JTextField();
 		menu = new ScaleMenu();
 		add(ioField);
