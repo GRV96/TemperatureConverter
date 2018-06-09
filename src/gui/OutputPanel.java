@@ -13,11 +13,11 @@ public class OutputPanel extends IOPanel
 	
 	/**
 	 * Sets the temperature to display in the output field.
-	 * @param temp
+	 * @param temperature
 	 * 		The temperature to display
 	 */
-	public void displayTemp(double temp) {
+	public void displayTemperature(double temperature) {
 		
-		ioField.setText("" + temp);
+		ioField.setText("" + temperature);
 	}
 }

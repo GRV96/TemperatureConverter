@@ -92,13 +92,13 @@ public class ConvFrame extends JFrame {
 	private class ConversionListener implements ActionListener{
 		
 		// Object that performs the conversion
-		TemperatureConverter tc;
+		private TemperatureConverter tc;
 		
 		// Input temperatue scale
-		String inputScale = "";
+		private String inputScale = "";
 		
 		// Output temperature scale
-		String outputScale = "";
+		private String outputScale = "";
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -123,7 +123,7 @@ public class ConvFrame extends JFrame {
 			// The output temperature
 			double outputTemp = tc.convert(inputTemp);
 			
-			outputPanel.displayTemp(outputTemp);
+			outputPanel.displayTemperature(outputTemp);
 			}
 			
 			catch(java.lang.NumberFormatException nfe) {

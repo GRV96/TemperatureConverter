@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public abstract class IOPanel extends JPanel {
 	
 	protected JTextField ioField;
-	private ScaleMenu menu;
+	private ScaleMenu scaleMenu;
 
 	/**
 	 * Constructor
@@ -31,10 +31,10 @@ public abstract class IOPanel extends JPanel {
 		setSize(width, height);
 		ioField = new JTextField();
 		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
-		menu = new ScaleMenu();
-		menu.setPreferredSize(new Dimension(scaleMenuWidth, height));
+		scaleMenu = new ScaleMenu();
+		scaleMenu.setPreferredSize(new Dimension(scaleMenuWidth, height));
 		add(ioField);
-		add(menu);
+		add(scaleMenu);
 	}
 	
 	/**
@@ -43,6 +43,6 @@ public abstract class IOPanel extends JPanel {
 	 */
 	public String getScale() {
 		
-		return (String) menu.getSelectedItem();
+		return (String) scaleMenu.getSelectedItem();
 	}
 }
