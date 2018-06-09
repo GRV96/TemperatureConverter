@@ -28,7 +28,6 @@ public abstract class IOPanel extends JPanel {
 		int scaleMenuWidth = 50;
 		
 		setLayout(new FlowLayout());
-		//setBackground(Color.BLUE);
 		setSize(width, height);
 		ioField = new JTextField();
 		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
