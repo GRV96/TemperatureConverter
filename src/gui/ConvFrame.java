@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,21 +58,30 @@ public class ConvFrame extends JFrame {
 
 		convBtn = new JButton("Convert");
 		convBtn.addActionListener(new ConversionListener());
-		cp.add(convBtn);
-
+		
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new FlowLayout());
+		btnPanel.add(convBtn);
+		cp.add(btnPanel);
+		
 		outputPanel = new OutputPanel(getWidth(), ioFieldHeight);
 		cp.add(outputPanel);
 		
-		ImageIcon image = new ImageIcon("thermometer.jpg");
-		JLabel imageLabel = new JLabel(image);
+		ImageIcon thermometerImage = new ImageIcon("thermometer.jpg");
+		JLabel imageLabel = new JLabel(thermometerImage);
 		cp.add(imageLabel);
 
 		setContentPane(cp);
 	}
 
+	/**
+	 * Starts all the stuff.
+	 * @param args
+	 * 		Who uses that?
+	 */
 	public static void main(String[] args) {
 
-		JFrame f = new ConvFrame();
+		new ConvFrame();
 	}
 
 	/**

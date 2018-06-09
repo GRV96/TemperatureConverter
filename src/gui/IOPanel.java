@@ -1,6 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,10 +25,15 @@ public abstract class IOPanel extends JPanel {
 	 */
 	public IOPanel(int width, int height) {
 		
-		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-		setPreferredSize(new Dimension(width, height));
+		int scaleMenuWidth = 50;
+		
+		setLayout(new FlowLayout());
+		//setBackground(Color.BLUE);
+		setSize(width, height);
 		ioField = new JTextField();
+		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
 		menu = new ScaleMenu();
+		menu.setPreferredSize(new Dimension(scaleMenuWidth, height));
 		add(ioField);
 		add(menu);
 	}
