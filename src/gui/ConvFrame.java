@@ -69,7 +69,9 @@ public class ConvFrame extends JFrame {
 		
 		ImageIcon thermometerImage = new ImageIcon("thermometer.jpg");
 		JLabel imageLabel = new JLabel(thermometerImage);
-		cp.add(imageLabel);
+		JPanel imagePanel = new JPanel();
+		imagePanel.add(imageLabel);
+		cp.add(imagePanel);
 
 		setContentPane(cp);
 	}
