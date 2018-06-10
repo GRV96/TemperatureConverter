@@ -10,6 +10,12 @@ import gui.ScaleMenu;
  */
 public abstract class ConverterCreator {
 
+	/**
+	 * Instantiates a temperature converter according to the specified output scale.
+	 * @param outputScale
+	 * 		the scale to which conversion will be performed
+	 * @return a temperature converter
+	 */
 	public final TemperatureConverter createConverter(String outputScale) {
 		
 		TemperatureConverter converter = null;
