@@ -3,6 +3,8 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,13 +15,25 @@ import javax.swing.JPanel;
 
 import convcreators.ConverterFactory;
 import converters.TemperatureConverter;
+import language.EnglishTextContainer;
+import language.FrenchTextContainer;
+import language.LanguageObserver;
+import language.SpanishTextContainer;
+import language.TextContainer;
 
 /**
  * The application's user interface
  * @author GRV96
  *
  */
-public class ConvFrame extends JFrame {
+public class ConvFrame extends JFrame implements LanguageObserver {
+	
+	// Interface dimensions
+	public static final int FRAME_HEIGHT = 650;
+	public static final int FRAME_WIDTH = 500;
+	
+	// Allows to select the language.
+	private LanguagePanel languagePanel;
 
 	// Recieves the temperature to convert.
 	private InputPanel inputPanel;
@@ -35,11 +49,11 @@ public class ConvFrame extends JFrame {
 	 */
 	public ConvFrame() {
 
-		setTitle("Temperature Converter");
-		setSize(500, 600);
+		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		buildContentPane();
+		setLanguage();
 		setVisible(true);
 	}
 
@@ -48,15 +62,19 @@ public class ConvFrame extends JFrame {
 	 */
 	private void buildContentPane() {
 		
-		int ioFieldHeight = 40;
+		int panelHeight = 40;
 
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
+		
+		languagePanel = new LanguagePanel(FRAME_WIDTH, panelHeight);
+		languagePanel.addItemListener(new LanguageItemListener());
+		cp.add(languagePanel);
 
-		inputPanel = new InputPanel(getWidth(), ioFieldHeight);
+		inputPanel = new InputPanel(FRAME_WIDTH, panelHeight);
 		cp.add(inputPanel);
 
-		convBtn = new JButton("Convert");
+		convBtn = new JButton();
 		convBtn.addActionListener(new ConversionListener());
 		
 		JPanel btnPanel = new JPanel();
@@ -64,7 +82,7 @@ public class ConvFrame extends JFrame {
 		btnPanel.add(convBtn);
 		cp.add(btnPanel);
 		
-		outputPanel = new OutputPanel(getWidth(), ioFieldHeight);
+		outputPanel = new OutputPanel(FRAME_WIDTH, panelHeight);
 		cp.add(outputPanel);
 		
 		ImageIcon thermometerImage = new ImageIcon("thermometer.jpg");
@@ -74,6 +92,37 @@ public class ConvFrame extends JFrame {
 		cp.add(imagePanel);
 
 		setContentPane(cp);
+	}
+	
+	/**
+	 * Detects the chosen language and applies the selection.
+	 */
+	private void setLanguage() {
+		
+		String language = languagePanel.getLanguage();
+		TextContainer tc = null;
+		
+		switch(language) {
+		case LanguageMenu.FRENCH:
+			tc = new FrenchTextContainer();
+			break;
+		case LanguageMenu.ENGLISH:
+			tc = new EnglishTextContainer();
+			break;
+		case LanguageMenu.SPANISH:
+			tc = new SpanishTextContainer();
+			break;
+		}
+		
+		updateLanguage(tc);
+	}
+
+	@Override
+	public void updateLanguage(TextContainer tc) {
+		
+		setTitle(tc.getText(TextContainer.TITLE_KEY));
+		convBtn.setText(tc.getText(TextContainer.CONVERSION_BTN_KEY));
+		languagePanel.updateLanguage(tc);
 	}
 
 	/**
@@ -132,6 +181,20 @@ public class ConvFrame extends JFrame {
 				
 				// Do nothing. Conversion is impossible.
 			}
+		}
+	}
+	
+	/**
+	 * This class changes the language of the user interface upon selction.
+	 * @author GRV69
+	 *
+	 */
+	private class LanguageItemListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			
+			setLanguage();
 		}
 	}
 }
