@@ -1,5 +1,12 @@
 package gui;
 
+/**
+ * This panel enables the user to enter the
+ * temperature to be converted and to chose the
+ * scale from which the conversion will be performed.
+ * @author GRV96
+ *
+ */
 public class InputPanel extends IOPanel {
 
 	/**

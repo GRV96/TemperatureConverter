@@ -1,15 +1,14 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Displays components allowing the user to enter the temperature to convert.
+ * This superclass is a template to build panels for
+ * the input temperature and the output temperature.
  * @author GRV96
  *
  */

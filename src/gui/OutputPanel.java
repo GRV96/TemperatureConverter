@@ -1,5 +1,12 @@
 package gui;
 
+/**
+ * This panel enables the user to chose the
+ * scale to which the conversion will be
+ * performed and displays the converted temperature.
+ * @author GRV96
+ *
+ */
 public class OutputPanel extends IOPanel
 {
 	/**
