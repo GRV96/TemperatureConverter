@@ -25,7 +25,7 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 	
 	// Interface dimensions
 	public static final int FRAME_HEIGHT = 650;
-	public static final int FRAME_WIDTH = 500;
+	public static final int FRAME_WIDTH = 520;
 	
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
@@ -36,8 +36,11 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 	// Displays the converted temperature.
 	private OutputPanel outputPanel;
 
-	// Button that launches the conversion
+	// The button that launches the conversion
 	private JButton convBtn;
+	
+	// The button that switches the input and output scales
+	private JButton switchBtn;
 
 	/**
 	 * Constructor
@@ -45,6 +48,7 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 	public ConvFrame() {
 
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		buildContentPane();
@@ -75,10 +79,15 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		convBtn = new JButton();
 		convBtn.addActionListener(new ConversionListener());
 		
+		// A button to switch the input and output scales
+		switchBtn = new JButton();
+		switchBtn.addActionListener(new SwitchListener());
+		
 		// The panel that displays the conversion button
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 		btnPanel.add(convBtn);
+		btnPanel.add(switchBtn);
 		cp.add(btnPanel);
 		
 		// A panel to display the result of the conversion
@@ -103,6 +112,7 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		
 		setTitle(tc.getText(TextContainer.TITLE_KEY));
 		convBtn.setText(tc.getText(TextContainer.CONVERSION_BTN_KEY));
+		switchBtn.setText(tc.getText(TextContainer.SWITCH_BTN_KEY));
 	}
 
 	/**
@@ -120,7 +130,7 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 	 * @author GRV96
 	 *
 	 */
-	private class ConversionListener implements ActionListener{
+	private class ConversionListener implements ActionListener {
 		
 		// Object that performs the conversion
 		private TemperatureConverter tc;
@@ -156,11 +166,24 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 			
 			outputPanel.displayTemperature(outputTemp);
 			}
-			
 			catch(java.lang.NumberFormatException nfe) {
 				
 				// Do nothing. Conversion is impossible.
 			}
+		}
+	}
+	
+	/**
+	 * A listener for the scale switching button
+	 * @author GRV96
+	 *
+	 */
+	private class SwitchListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			IOPanel.switchScales(inputPanel, outputPanel);
 		}
 	}
 }

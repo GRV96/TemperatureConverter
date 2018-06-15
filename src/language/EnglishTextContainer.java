@@ -21,5 +21,6 @@ public class EnglishTextContainer extends TextContainer {
 		frameTitle = "Temperature Converter";
 		langSelectInstruction = "Choose a language.";
 		convBtnText = "Convert";
+		switchBtnText = "Switch scales";
 	}
 }

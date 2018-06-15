@@ -15,11 +15,13 @@ public abstract class TextContainer {
 	public static final int TITLE_KEY = 0;
 	public static final int LANGUAGE_MENU_KEY = 1;
 	public static final int CONVERSION_BTN_KEY = 2;
+	public static final int SWITCH_BTN_KEY = 3;
 	
 	// Strings to be put into the HashMap
 	protected String frameTitle;
 	protected String langSelectInstruction;
 	protected String convBtnText;
+	protected String switchBtnText;
 
 	// Map that contains strings to be displayed in the GUI
 	private Map<Integer, String> textMap;
@@ -47,6 +49,7 @@ public abstract class TextContainer {
 		textMap.put(TITLE_KEY, frameTitle);
 		textMap.put(LANGUAGE_MENU_KEY, langSelectInstruction);
 		textMap.put(CONVERSION_BTN_KEY, convBtnText);
+		textMap.put(SWITCH_BTN_KEY, switchBtnText);
 	}
 	
 	/**

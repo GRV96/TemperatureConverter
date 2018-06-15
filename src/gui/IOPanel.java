@@ -44,4 +44,20 @@ public abstract class IOPanel extends JPanel {
 		
 		return (String) scaleMenu.getSelectedItem();
 	}
+	
+	/**
+	 * Switches the scales of the two given IO panels.
+	 * @param iop1
+	 * 		An IO panel
+	 * @param iop2
+	 * 		An IO panel
+	 */
+	public static void switchScales(IOPanel iop1, IOPanel iop2) {
+		
+		String scale1 = (String) iop1.scaleMenu.getSelectedItem();
+		String scale2 = (String) iop2.scaleMenu.getSelectedItem();
+		
+		iop1.scaleMenu.setSelectedItem(scale2);
+		iop2.scaleMenu.setSelectedItem(scale1);
+	}
 }

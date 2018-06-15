@@ -21,5 +21,6 @@ public class SpanishTextContainer extends TextContainer {
 		frameTitle = "Convertidor de temperatura";
 		langSelectInstruction = "Escoja un idioma.";
 		convBtnText = "Convertir";
+		switchBtnText = "Invertir las escalas";
 	}
 }
