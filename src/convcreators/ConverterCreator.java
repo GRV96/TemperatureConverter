@@ -26,7 +26,7 @@ public abstract class ConverterCreator {
 		}
 		else if(outputScale.equals(ScaleMenu.DEG_F)) {
 			
-			converter = createConvToFarenheit();
+			converter = createConvToFahrenheit();
 		}
 		else if(outputScale.equals(ScaleMenu.KELVIN)) {
 			
@@ -38,7 +38,7 @@ public abstract class ConverterCreator {
 	
 	protected abstract TemperatureConverter createConvToCelsisus();
 	
-	protected abstract TemperatureConverter createConvToFarenheit();
+	protected abstract TemperatureConverter createConvToFahrenheit();
 	
 	protected abstract TemperatureConverter createConvToKelvins();
 }

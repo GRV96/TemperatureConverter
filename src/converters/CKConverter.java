@@ -1,7 +1,7 @@
 package converters;
 
 /**
- * Converts degrees Celsius to kelvins.
+ * Provides a method to convert degrees Celsius to kelvins.
  * @author GRV96
  *
  */

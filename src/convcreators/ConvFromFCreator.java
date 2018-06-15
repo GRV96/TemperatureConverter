@@ -7,14 +7,14 @@ import converters.TemperatureConverter;
 
 /**
  * This class can instantiate converters that
- * convert temperatures from degrees Farenheit.
+ * convert temperatures from degrees Fahrenheit.
  * @author GRV96
  *
  */
 public class ConvFromFCreator extends ConverterCreator {
 
 	/**
-	 * Creates a converter from Farenheit to Celsius.
+	 * Creates a converter from Fahrenheit to Celsius.
 	 * @return an instance of FCConverter
 	 */
 	@Override
@@ -28,13 +28,13 @@ public class ConvFromFCreator extends ConverterCreator {
 	 * @return an instance of NonConverter
 	 */
 	@Override
-	protected TemperatureConverter createConvToFarenheit() {
+	protected TemperatureConverter createConvToFahrenheit() {
 		
 		return new NonConverter();
 	}
 
 	/**
-	 * Creates a converter from Farenheit to kelvins.
+	 * Creates a converter from Fahrenheit to kelvins.
 	 * @return an instance of FKConverter
 	 */
 	@Override

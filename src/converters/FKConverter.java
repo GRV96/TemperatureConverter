@@ -1,10 +1,15 @@
 package converters;
 
+/**
+ * Provides a method to convert degrees Fahrenheit to kelvins.
+ * @author GRV96
+ *
+ */
 public class FKConverter implements TemperatureConverter {
 
 	@Override
 	public double convert(double inputTemp) {
 		
-		return (inputTemp - 32) * 5/9 +273.15;
+		return (inputTemp + 459.67) * 5/9;
 	}
 }

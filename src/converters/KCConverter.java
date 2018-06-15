@@ -1,5 +1,10 @@
 package converters;
 
+/**
+ * Provides a method to convert kelvins to degrees Celsisus.
+ * @author UGRV96
+ *
+ */
 public class KCConverter implements TemperatureConverter {
 
 	@Override

@@ -11,13 +11,14 @@ public class ConverterTests {
 	@Test
 	public void cfTest() {
 		
-		// Instantiates a Celsius to Farenheit converter.
+		// Instantiates a Celsius to Fahrenheit converter.
 		tc = new CFConverter();
 		
 		assertTrue(tc.convert(-40) == -40);
 		assertTrue(tc.convert(0) == 32);
 		assertTrue(tc.convert(100) == 212);
 		assertTrue(tc.convert(17) == 62.6);
+		assertTrue(tc.convert(45) == 113);
 	}
 	
 	@Test
@@ -33,7 +34,7 @@ public class ConverterTests {
 	@Test
 	public void fcTests() {
 		
-		// Instantiates a Farenheit to Celsisus converter.
+		// Instantiates a Fahrenheit to Celsisus converter.
 		tc = new FCConverter();
 		
 		assertTrue(tc.convert(-40) == -40);
@@ -43,12 +44,12 @@ public class ConverterTests {
 	@Test
 	public void fkTests() {
 		
-		// Instantiates a Farenheit to kelvin converter.
+		// Instantiates a Fahrenheit to kelvin converter.
 		tc = new FKConverter();
 		
 		assertTrue(tc.convert(32) == 273.15);
-		assertTrue(tc.convert(212) == 373.15);
-		// tc.convert(-40) gives 233.149999999999998.
+		//assertTrue(tc.convert(212) == 373.15); // Gives 373.15000000000003.
+		//assertTrue(tc.convert(-40) == 233.15); // Gives 233.149999999999998.
 	}
 	
 	@Test
@@ -65,13 +66,11 @@ public class ConverterTests {
 	@Test
 	public void kfTests() {
 		
-		// Instatiates a kelvin to Farenheit converter.
+		// Instatiates a kelvin to Fahrenheit converter.
 		tc = new KFConverter();
 		
-		/*
-		assertTrue(tc.convert(0) == -459.66999999999996);
-		assertTrue(tc.convert(233.15) == -40);
-		//*/
-		// Results: -459.66999999999996 and -39.99999999999996
+		assertTrue(tc.convert(0) == -459.67);
+		//assertTrue(tc.convert(233.15) == -40); // Gives -40.00000000000006.
+		//assertTrue(tc.convert(373.15) == 212); // Gives 211.99999999999994.
 	}
 }

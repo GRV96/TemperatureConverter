@@ -24,11 +24,11 @@ public class ConvFromKCreator extends ConverterCreator {
 	}
 	
 	/**
-	 * Creates a converter from kelvins to Farenheit.
+	 * Creates a converter from kelvins to Fahrenheit.
 	 * @return an instance of KFConverter
 	 */
 	@Override
-	protected TemperatureConverter createConvToFarenheit() {
+	protected TemperatureConverter createConvToFahrenheit() {
 		
 		return new KFConverter();
 	}

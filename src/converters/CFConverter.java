@@ -1,7 +1,7 @@
 package converters;
 
 /**
- * Converts degrees Celsius to degrees Farenheit.
+ * Provides a method to convert degrees Celsius to degrees Fahrenheit.
  * @author GRV96
  *
  */

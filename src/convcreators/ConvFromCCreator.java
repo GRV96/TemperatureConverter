@@ -24,11 +24,11 @@ public class ConvFromCCreator extends ConverterCreator {
 	}
 
 	/**
-	 * Creates a converter from Celsius to Farenheit.
+	 * Creates a converter from Celsius to Fahrenheit.
 	 * @return an instance of CFConverter
 	 */
 	@Override
-	protected TemperatureConverter createConvToFarenheit() {
+	protected TemperatureConverter createConvToFahrenheit() {
 		
 		return new CFConverter();
 	}
