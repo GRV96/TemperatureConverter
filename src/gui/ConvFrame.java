@@ -3,8 +3,6 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -15,10 +13,7 @@ import javax.swing.JPanel;
 
 import convcreators.ConverterFactory;
 import converters.TemperatureConverter;
-import language.EnglishTextContainer;
-import language.FrenchTextContainer;
 import language.LanguageObserver;
-import language.SpanishTextContainer;
 import language.TextContainer;
 
 /**
@@ -53,7 +48,6 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		buildContentPane();
-		setLanguage();
 		setVisible(true);
 	}
 
@@ -64,57 +58,44 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		
 		int panelHeight = 40;
 
+		// The JPanel that will become the content pane
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
 		
+		// A panel to chose the language
 		languagePanel = new LanguagePanel(FRAME_WIDTH, panelHeight);
-		languagePanel.addItemListener(new LanguageItemListener());
+		languagePanel.addLanguageObserver(this);
 		cp.add(languagePanel);
 
+		// A panel to enter the input temperature
 		inputPanel = new InputPanel(FRAME_WIDTH, panelHeight);
 		cp.add(inputPanel);
 
+		// A button to launch the conversion
 		convBtn = new JButton();
 		convBtn.addActionListener(new ConversionListener());
 		
+		// The panel that displays the conversion button
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 		btnPanel.add(convBtn);
 		cp.add(btnPanel);
 		
+		// A panel to display the result of the conversion
 		outputPanel = new OutputPanel(FRAME_WIDTH, panelHeight);
 		cp.add(outputPanel);
 		
+		// A thermometer picture is displayed.
 		ImageIcon thermometerImage = new ImageIcon("thermometer.jpg");
 		JLabel imageLabel = new JLabel(thermometerImage);
 		JPanel imagePanel = new JPanel();
 		imagePanel.add(imageLabel);
 		cp.add(imagePanel);
+		
+		// All texts in the interface are set.
+		languagePanel.setLanguage();
 
 		setContentPane(cp);
-	}
-	
-	/**
-	 * Detects the chosen language and applies the selection.
-	 */
-	private void setLanguage() {
-		
-		String language = languagePanel.getLanguage();
-		TextContainer tc = null;
-		
-		switch(language) {
-		case LanguageMenu.FRENCH:
-			tc = new FrenchTextContainer();
-			break;
-		case LanguageMenu.ENGLISH:
-			tc = new EnglishTextContainer();
-			break;
-		case LanguageMenu.SPANISH:
-			tc = new SpanishTextContainer();
-			break;
-		}
-		
-		updateLanguage(tc);
 	}
 
 	@Override
@@ -122,7 +103,6 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		
 		setTitle(tc.getText(TextContainer.TITLE_KEY));
 		convBtn.setText(tc.getText(TextContainer.CONVERSION_BTN_KEY));
-		languagePanel.updateLanguage(tc);
 	}
 
 	/**
@@ -181,20 +161,6 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 				
 				// Do nothing. Conversion is impossible.
 			}
-		}
-	}
-	
-	/**
-	 * This class changes the language of the user interface upon selction.
-	 * @author GRV69
-	 *
-	 */
-	private class LanguageItemListener implements ItemListener{
-
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			
-			setLanguage();
 		}
 	}
 }
