@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import convcreators.ConverterFactory;
+import convcreators.ConverterCreator;
 import converters.TemperatureConverter;
 import language.LanguageObserver;
 import language.TextContainer;
@@ -153,7 +153,7 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 				
 				inputScale = iScale;
 				outputScale = oScale;
-				tc = ConverterFactory.createConverter(inputScale, outputScale);
+				tc = ConverterCreator.create(inputScale, outputScale);
 			}
 			
 			try {
