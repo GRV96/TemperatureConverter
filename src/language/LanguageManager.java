@@ -52,7 +52,7 @@ public class LanguageManager extends Observable {
 	 * Accesses the object that contains the strings to be displayed.
 	 * @return the text container
 	 */
-	public TextContainer getTexts() {return tc;}
+	public TextContainer getTextContainer() {return tc;}
 	
 	/**
 	 * Changes the application's language.

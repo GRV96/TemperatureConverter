@@ -3,17 +3,11 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import language.EnglishTextContainer;
-import language.FrenchTextContainer;
-import language.LanguageObservable;
-import language.LanguageObserver;
-import language.SpanishTextContainer;
+import language.LanguageManager;
 import language.TextContainer;
 
 /**
@@ -21,15 +15,22 @@ import language.TextContainer;
  * @author GRV96
  *
  */
-public class LanguagePanel extends JPanel implements LanguageObservable {
+public class LanguagePanel extends JPanel {
 	
-	// Components displayed on the panel
+	/**
+	 * A JLabel informing the user they can change the language
+	 */
 	private JLabel instruction;
+	
+	/**
+	 * A JComboBox that enables the user to change the language
+	 */
 	private LanguageMenu languageMenu;
 	
-	// Objects involved in the lanugage selection
-	private ArrayList<LanguageObserver> languageObservers;
-	private TextContainer tc;
+	/**
+	 * The object that handles the language setting.
+	 */
+	private LanguageManager langManager;
 
 	/**
 	 * Constructor
@@ -45,7 +46,7 @@ public class LanguagePanel extends JPanel implements LanguageObservable {
 		languageMenu.addItemListener(new LanguageItemListener());
 		add(instruction);
 		add(languageMenu);
-		languageObservers = new ArrayList<LanguageObserver>();
+		langManager = LanguageManager.getInstance();
 	}
 
 	/**
@@ -60,47 +61,25 @@ public class LanguagePanel extends JPanel implements LanguageObservable {
 	/**
 	 * Detects the chosen language and applies the selection.
 	 */
-	public void setLanguage() {
+	public void updateLanguage() {
 		
 		String language = getLanguage();
 		
 		switch(language) {
 		case LanguageMenu.FRENCH:
-			tc = new FrenchTextContainer();
+			langManager.setLanguage(LanguageManager.Language.FRANCAIS);
 			break;
 		case LanguageMenu.ENGLISH:
-			tc = new EnglishTextContainer();
+			langManager.setLanguage(LanguageManager.Language.ENGLISH);
 			break;
 		case LanguageMenu.SPANISH:
-			tc = new SpanishTextContainer();
+			langManager.setLanguage(LanguageManager.Language.ESPANOL);
 			break;
 		default:
 			// Not useful if the logic is correct.
 		}
 		
-		instruction.setText(tc.getText(TextContainer.LANGUAGE_MENU_KEY));
-		notifyLanguageObservers();
-	}
-
-	@Override
-	public void addLanguageObserver(LanguageObserver lo) {
-		
-		// lo is added if it does not exist yet in the collection.
-		if(!languageObservers.contains(lo)) {
-			
-			languageObservers.add(lo);
-		}
-	}
-
-	@Override
-	public void notifyLanguageObservers() {
-		
-		Iterator<LanguageObserver> langObsIterator = languageObservers.iterator();
-		
-		while(langObsIterator.hasNext()) {
-			
-			langObsIterator.next().updateLanguage(tc);
-		}
+		instruction.setText(langManager.getTextContainer().getText(TextContainer.LANGUAGE_MENU_KEY));
 	}
 	
 	/**
@@ -113,7 +92,7 @@ public class LanguagePanel extends JPanel implements LanguageObservable {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			
-			setLanguage();
+			updateLanguage();
 		}
 	}
 }

@@ -3,6 +3,8 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,7 +15,7 @@ import javax.swing.JPanel;
 
 import convcreators.ConverterCreator;
 import converters.TemperatureConverter;
-import language.LanguageObserver;
+import language.LanguageManager;
 import language.TextContainer;
 
 /**
@@ -21,11 +23,13 @@ import language.TextContainer;
  * @author GRV96
  *
  */
-public class ConvFrame extends JFrame implements LanguageObserver {
+public class ConvFrame extends JFrame implements Observer {
 	
 	// Interface dimensions
 	public static final int FRAME_HEIGHT = 650;
 	public static final int FRAME_WIDTH = 520;
+	
+	private LanguageManager langManager;
 	
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
@@ -47,6 +51,8 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 	 */
 	public ConvFrame() {
 
+		langManager = LanguageManager.getInstance();
+		langManager.addObserver(this);
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -66,9 +72,8 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
 		
-		// A panel to chose the language
+		// A panel to choose the language
 		languagePanel = new LanguagePanel(FRAME_WIDTH, panelHeight);
-		languagePanel.addLanguageObserver(this);
 		cp.add(languagePanel);
 
 		// A panel to enter the input temperature
@@ -102,14 +107,15 @@ public class ConvFrame extends JFrame implements LanguageObserver {
 		cp.add(imagePanel);
 		
 		// All texts in the interface are set.
-		languagePanel.setLanguage();
+		languagePanel.updateLanguage();
 
 		setContentPane(cp);
 	}
 
 	@Override
-	public void updateLanguage(TextContainer tc) {
-		
+	public void update(Observable o, Object arg) {
+
+		TextContainer tc = langManager.getTextContainer();
 		setTitle(tc.getText(TextContainer.TITLE_KEY));
 		convBtn.setText(tc.getText(TextContainer.CONVERSION_BTN_KEY));
 		switchBtn.setText(tc.getText(TextContainer.SWITCH_BTN_KEY));
