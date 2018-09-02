@@ -58,15 +58,12 @@ public class LanguagePanel extends JPanel {
 		switch(language) {
 		case LanguageMenu.FRENCH:
 			langManager.setLanguage(LanguageManager.Language.FRENCH);
-			System.out.println("LanguagePanel updated langManager to French.");
 			break;
 		case LanguageMenu.ENGLISH:
 			langManager.setLanguage(LanguageManager.Language.ENGLISH);
-			System.out.println("LanguagePanel updated langManager to English.");
 			break;
 		case LanguageMenu.SPANISH:
 			langManager.setLanguage(LanguageManager.Language.SPANISH);
-			System.out.println("LanguagePanel updated langManager to Spanish.");
 			break;
 		default:
 			// Not useful.

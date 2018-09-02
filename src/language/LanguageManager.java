@@ -66,15 +66,12 @@ public class LanguageManager extends Observable {
 		switch(language) {
 		case FRENCH:
 			tc = new FrenchTextContainer();
-			System.out.println("LanguageManager is set to French");
 			break;
 		case ENGLISH:
 			tc = new EnglishTextContainer();
-			System.out.println("LanguageManager is set to English");
 			break;
 		case SPANISH:
-			tc = new EnglishTextContainer();
-			System.out.println("LanguageManager is set to Spanish");
+			tc = new SpanishTextContainer();
 			break;
 		}
 		
