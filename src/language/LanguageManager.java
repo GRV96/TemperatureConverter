@@ -4,7 +4,9 @@ import java.util.Observable;
 
 /**
  * This class is a singleton for easier access to the instance.
- * It handles the language setting.
+ * It handles the language setting. A TextContainer object can
+ * be obtained from it in order to access the character
+ * strings to be displayed in a given language.
  * @author GRV96
  *
  */
@@ -15,7 +17,7 @@ public class LanguageManager extends Observable {
 	 * @author GRV96
 	 *
 	 */
-	public enum Language {FRANCAIS, ENGLISH, ESPANOL;}
+	public enum Language {FRENCH, ENGLISH, SPANISH;}
 
 	/**
 	 * The only instance of this class
@@ -62,17 +64,21 @@ public class LanguageManager extends Observable {
 	public void setLanguage(Language language) {
 		
 		switch(language) {
-		case FRANCAIS:
+		case FRENCH:
 			tc = new FrenchTextContainer();
+			System.out.println("LanguageManager is set to French");
 			break;
 		case ENGLISH:
 			tc = new EnglishTextContainer();
+			System.out.println("LanguageManager is set to English");
 			break;
-		case ESPANOL:
+		case SPANISH:
 			tc = new EnglishTextContainer();
+			System.out.println("LanguageManager is set to Spanish");
 			break;
 		}
 		
+		setChanged();
 		notifyObservers();
 	}
 }

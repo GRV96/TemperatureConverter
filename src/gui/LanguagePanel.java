@@ -23,14 +23,14 @@ public class LanguagePanel extends JPanel {
 	private JLabel instruction;
 	
 	/**
-	 * A JComboBox that enables the user to change the language
-	 */
-	private LanguageMenu languageMenu;
-	
-	/**
 	 * The object that handles the language setting.
 	 */
 	private LanguageManager langManager;
+	
+	/**
+	 * A JComboBox that enables the user to change the language
+	 */
+	private LanguageMenu languageMenu;
 
 	/**
 	 * Constructor
@@ -42,41 +42,35 @@ public class LanguagePanel extends JPanel {
 		setLayout(new FlowLayout());
 		setSize(width, height);
 		instruction = new JLabel();
+		langManager = LanguageManager.getInstance();
 		languageMenu = new LanguageMenu();
 		languageMenu.addItemListener(new LanguageItemListener());
 		add(instruction);
 		add(languageMenu);
-		langManager = LanguageManager.getInstance();
 	}
 
-	/**
-	 * Accesses the selected language
-	 * @return a String representing the language selected by the user
-	 */
-	public String getLanguage() {
-		
-		return (String) languageMenu.getSelectedItem();
-	}
-	
 	/**
 	 * Detects the chosen language and applies the selection.
 	 */
 	public void updateLanguage() {
 		
-		String language = getLanguage();
+		String language = (String) languageMenu.getSelectedItem();
 		
 		switch(language) {
 		case LanguageMenu.FRENCH:
-			langManager.setLanguage(LanguageManager.Language.FRANCAIS);
+			langManager.setLanguage(LanguageManager.Language.FRENCH);
+			System.out.println("LanguagePanel updated langManager to French.");
 			break;
 		case LanguageMenu.ENGLISH:
 			langManager.setLanguage(LanguageManager.Language.ENGLISH);
+			System.out.println("LanguagePanel updated langManager to English.");
 			break;
 		case LanguageMenu.SPANISH:
-			langManager.setLanguage(LanguageManager.Language.ESPANOL);
+			langManager.setLanguage(LanguageManager.Language.SPANISH);
+			System.out.println("LanguagePanel updated langManager to Spanish.");
 			break;
 		default:
-			// Not useful if the logic is correct.
+			// Not useful.
 		}
 		
 		instruction.setText(langManager.getTextContainer().getText(TextContainer.LANGUAGE_MENU_KEY));

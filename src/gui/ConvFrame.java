@@ -119,6 +119,8 @@ public class ConvFrame extends JFrame implements Observer {
 		setTitle(tc.getText(TextContainer.TITLE_KEY));
 		convBtn.setText(tc.getText(TextContainer.CONVERSION_BTN_KEY));
 		switchBtn.setText(tc.getText(TextContainer.SWITCH_BTN_KEY));
+		
+		System.out.println("ConvFrame upadated");
 	}
 
 	/**
