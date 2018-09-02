@@ -37,10 +37,9 @@ public class LanguagePanel extends JPanel {
 	 * @param width
 	 * @param height
 	 */
-	public LanguagePanel(int width, int height) {
+	public LanguagePanel() {
 		
 		setLayout(new FlowLayout());
-		setSize(width, height);
 		instruction = new JLabel();
 		langManager = LanguageManager.getInstance();
 		languageMenu = new LanguageMenu();

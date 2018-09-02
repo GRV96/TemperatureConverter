@@ -73,7 +73,8 @@ public class ConvFrame extends JFrame implements Observer {
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
 		
 		// A panel to choose the language
-		languagePanel = new LanguagePanel(FRAME_WIDTH, panelHeight);
+		languagePanel = new LanguagePanel();
+		languagePanel.setSize(FRAME_WIDTH, panelHeight);
 		cp.add(languagePanel);
 
 		// A panel to enter the input temperature

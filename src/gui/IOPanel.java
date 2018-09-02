@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 /**
  * This superclass is a template to build panels for
  * the input temperature and the output temperature.
+ * It is not meant to be instantiated.
  * @author GRV96
  *
  */
@@ -18,11 +19,11 @@ public abstract class IOPanel extends JPanel {
 	private ScaleMenu scaleMenu;
 
 	/**
-	 * Constructor
+	 * The constructor is protected to prevent the instantiation.
 	 * @param width
 	 * @param height
 	 */
-	public IOPanel(int width, int height) {
+	protected IOPanel(int width, int height) {
 		
 		int scaleMenuWidth = 50;
 		
