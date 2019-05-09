@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,8 +33,10 @@ public abstract class IOPanel extends JPanel {
 		setLayout(new FlowLayout());
 		setSize(width, height);
 		ioField = new JTextField();
+		ioField.setFont(new AppFont());
 		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
 		scaleMenu = new ScaleMenu();
+		scaleMenu.setFont(new AppFont());
 		scaleMenu.setPreferredSize(new Dimension(scaleMenuWidth, height));
 		add(ioField);
 		add(scaleMenu);

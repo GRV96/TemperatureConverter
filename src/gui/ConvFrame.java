@@ -37,7 +37,7 @@ public class ConvFrame extends JFrame implements Observer {
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
 
-	// Recieves the temperature to convert.
+	// Receives the temperature to convert.
 	private InputPanel inputPanel;
 
 	// Displays the converted temperature.
@@ -65,7 +65,7 @@ public class ConvFrame extends JFrame implements Observer {
 	}
 
 	/**
-	 * Assembles the interface's components: input and output fields, menus and button.
+	 * Assembles the interface's components: input and output fields, menus and buttons.
 	 */
 	private void buildContentPane() {
 		
@@ -87,12 +87,14 @@ public class ConvFrame extends JFrame implements Observer {
 		// A button to launch the conversion
 		convBtn = new JButton();
 		convBtn.addActionListener(new ConversionListener());
+		convBtn.setFont(new AppFont());
 		
 		// A button to switch the input and output scales
 		switchBtn = new JButton();
 		switchBtn.addActionListener(new SwitchListener());
+		switchBtn.setFont(new AppFont());
 		
-		// The panel that displays the conversion button
+		// The panel that displays the buttons
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 		btnPanel.add(convBtn);

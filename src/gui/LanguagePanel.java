@@ -43,9 +43,11 @@ public class LanguagePanel extends JPanel {
 		
 		setLayout(new FlowLayout());
 		instruction = new JLabel();
+		instruction.setFont(new AppFont());
 		langManager = LanguageManager.getInstance();
 		languageMenu = new LanguageMenu();
 		languageMenu.addItemListener(new LanguageItemListener());
+		languageMenu.setFont(new AppFont());
 		add(instruction);
 		add(languageMenu);
 	}
