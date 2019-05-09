@@ -9,6 +9,8 @@ import javax.swing.JComboBox;
  */
 public class ScaleMenu extends JComboBox<String> {
 
+	private static final long serialVersionUID = -8651974994424339137L;
+	
 	public static final String DEG_C = "°C";
 	public static final String DEG_F = "°F";
 	public static final String KELVIN = "K";

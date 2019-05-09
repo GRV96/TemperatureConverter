@@ -25,6 +25,8 @@ import language.TextContainer;
  */
 public class ConvFrame extends JFrame implements Observer {
 	
+	private static final long serialVersionUID = 251902842150196855L;
+	
 	// Interface dimensions
 	public static final int FRAME_HEIGHT = 650;
 	public static final int FRAME_WIDTH = 520;

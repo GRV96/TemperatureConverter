@@ -15,6 +15,8 @@ import javax.swing.JTextField;
  */
 public abstract class IOPanel extends JPanel {
 	
+	private static final long serialVersionUID = -2289247146811041138L;
+	
 	protected JTextField ioField;
 	protected ScaleMenu scaleMenu;
 

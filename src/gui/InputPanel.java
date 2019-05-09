@@ -9,6 +9,8 @@ package gui;
  */
 public class InputPanel extends IOPanel {
 
+	private static final long serialVersionUID = -6080963751590679553L;
+
 	/**
 	 * Constructor
 	 */

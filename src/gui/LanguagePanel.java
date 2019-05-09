@@ -17,6 +17,8 @@ import language.TextContainer;
  */
 public class LanguagePanel extends JPanel {
 	
+	private static final long serialVersionUID = -4605260424700093571L;
+
 	/**
 	 * A JLabel informing the user they can change the language
 	 */

@@ -9,6 +9,8 @@ import javax.swing.JComboBox;
  */
 public class LanguageMenu extends JComboBox<String> {
 	
+	private static final long serialVersionUID = -2515408722232669443L;
+	
 	public static final String FRENCH = "Français";
 	public static final String ENGLISH = "English";
 	public static final String SPANISH = "Español";
