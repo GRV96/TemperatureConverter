@@ -16,6 +16,7 @@ public class OutputPanel extends IOPanel
 	{
 		super(width, height);
 		ioField.setEditable(false);
+		scaleMenu.setSelectedItem(ScaleMenu.DEG_F);
 	}
 	
 	/**

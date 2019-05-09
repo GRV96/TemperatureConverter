@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public abstract class IOPanel extends JPanel {
 	
 	protected JTextField ioField;
-	private ScaleMenu scaleMenu;
+	protected ScaleMenu scaleMenu;
 
 	/**
 	 * The constructor is protected to prevent the instantiation.
