@@ -81,7 +81,8 @@ public class ConvFrame extends JFrame implements Observer {
 		cp.add(languagePanel);
 
 		// A panel to enter the input temperature
-		inputPanel = new InputPanel(FRAME_WIDTH, panelHeight);
+		inputPanel = new InputPanel();
+		inputPanel.setSize(FRAME_WIDTH, panelHeight);
 		cp.add(inputPanel);
 
 		// A button to launch the conversion
@@ -102,7 +103,8 @@ public class ConvFrame extends JFrame implements Observer {
 		cp.add(btnPanel);
 		
 		// A panel to display the result of the conversion
-		outputPanel = new OutputPanel(FRAME_WIDTH, panelHeight);
+		outputPanel = new OutputPanel();
+		outputPanel.setSize(FRAME_WIDTH, panelHeight);
 		cp.add(outputPanel);
 		
 		// A thermometer picture is displayed.

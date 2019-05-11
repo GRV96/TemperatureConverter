@@ -26,18 +26,13 @@ public abstract class IOPanel extends JPanel {
 	 * @param width
 	 * @param height
 	 */
-	protected IOPanel(int width, int height) {
+	protected IOPanel() {
 		
-		int scaleMenuWidth = 50;
-		
-		setLayout(new FlowLayout());
-		setSize(width, height);
 		ioField = new JTextField();
 		ioField.setFont(new AppFont());
-		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
 		scaleMenu = new ScaleMenu();
 		scaleMenu.setFont(new AppFont());
-		scaleMenu.setPreferredSize(new Dimension(scaleMenuWidth, height));
+		setLayout(new FlowLayout());
 		add(ioField);
 		add(scaleMenu);
 	}
@@ -49,6 +44,15 @@ public abstract class IOPanel extends JPanel {
 	public String getScale() {
 		
 		return (String) scaleMenu.getSelectedItem();
+	}
+	
+	@Override
+	public void setSize(int width, int height) {
+		
+		super.setSize(width, height);
+		int scaleMenuWidth = 50;
+		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
+		scaleMenu.setPreferredSize(new Dimension(scaleMenuWidth, height));
 	}
 	
 	/**

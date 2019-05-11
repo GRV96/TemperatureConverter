@@ -14,9 +14,9 @@ public class InputPanel extends IOPanel {
 	/**
 	 * Constructor
 	 */
-	public InputPanel(int width, int height)
+	public InputPanel()
 	{
-		super(width, height);
+		super();
 		ioField.setEditable(true);
 	}
 	

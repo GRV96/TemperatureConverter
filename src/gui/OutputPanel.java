@@ -14,9 +14,9 @@ public class OutputPanel extends IOPanel
 	/**
 	 * Constructor
 	 */
-	public OutputPanel(int width, int height)
+	public OutputPanel()
 	{
-		super(width, height);
+		super();
 		ioField.setEditable(false);
 		scaleMenu.setSelectedItem(ScaleMenu.DEG_F);
 	}
@@ -26,8 +26,8 @@ public class OutputPanel extends IOPanel
 	 * @param temperature
 	 * 		The temperature to display
 	 */
-	public void displayTemperature(double temperature) {
-		
+	public void displayTemperature(double temperature)
+	{
 		ioField.setText("" + temperature);
 	}
 }
