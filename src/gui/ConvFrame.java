@@ -24,16 +24,16 @@ import language.TextContainer;
  *
  */
 public class ConvFrame extends JFrame implements Observer {
-	
+
 	private static final long serialVersionUID = 251902842150196855L;
-	
+
 	// Interface dimensions
 	public static final int FRAME_HEIGHT = 650;
 	public static final int FRAME_WIDTH = 520;
-	
+
 	// The object that handles the language selection
 	private LanguageManager langManager;
-	
+
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
 
@@ -45,7 +45,7 @@ public class ConvFrame extends JFrame implements Observer {
 
 	// The button that launches the conversion
 	private JButton convBtn;
-	
+
 	// The button that switches the input and output scales
 	private JButton switchBtn;
 
@@ -68,13 +68,13 @@ public class ConvFrame extends JFrame implements Observer {
 	 * Assembles the interface's components: input and output fields, menus and buttons.
 	 */
 	private void buildContentPane() {
-		
+
 		int panelHeight = 40;
 
 		// The JPanel that will become the content pane
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
-		
+
 		// A panel to choose the language
 		languagePanel = new LanguagePanel();
 		languagePanel.setSize(FRAME_WIDTH, panelHeight);
@@ -89,31 +89,31 @@ public class ConvFrame extends JFrame implements Observer {
 		convBtn = new JButton();
 		convBtn.addActionListener(new ConversionListener());
 		convBtn.setFont(new AppFont());
-		
+
 		// A button to switch the input and output scales
 		switchBtn = new JButton();
 		switchBtn.addActionListener(new SwitchListener());
 		switchBtn.setFont(new AppFont());
-		
+
 		// The panel that displays the buttons
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 		btnPanel.add(convBtn);
 		btnPanel.add(switchBtn);
 		cp.add(btnPanel);
-		
+
 		// A panel to display the result of the conversion
 		outputPanel = new OutputPanel();
 		outputPanel.setSize(FRAME_WIDTH, panelHeight);
 		cp.add(outputPanel);
-		
+
 		// A thermometer picture is displayed.
 		ImageIcon thermometerImage = new ImageIcon("thermometer.jpg");
 		JLabel imageLabel = new JLabel(thermometerImage);
 		JPanel imagePanel = new JPanel();
 		imagePanel.add(imageLabel);
 		cp.add(imagePanel);
-		
+
 		// All texts in the interface are set.
 		languagePanel.updateLanguage();
 
@@ -131,8 +131,6 @@ public class ConvFrame extends JFrame implements Observer {
 
 	/**
 	 * Starts all the stuff.
-	 * @param args
-	 * 		Who uses that?
 	 */
 	public static void main(String[] args) {
 
@@ -145,48 +143,48 @@ public class ConvFrame extends JFrame implements Observer {
 	 *
 	 */
 	private class ConversionListener implements ActionListener {
-		
+
 		// Object that performs the conversion
 		private TemperatureConverter tc;
-		
+
 		// Input temperatue scale
 		private String inputScale = "";
-		
+
 		// Output temperature scale
 		private String outputScale = "";
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			// Current input and output scales
 			String iScale = inputPanel.getScale();
 			String oScale = outputPanel.getScale();
-			
+
 			// If the input or output scale has changed, a new converter is instantiated.
 			if(!inputScale.equals(iScale) || !outputScale.equals(oScale)) {
-				
+
 				inputScale = iScale;
 				outputScale = oScale;
 				tc = ConverterCreator.create(inputScale, outputScale);
 			}
-			
+
 			try {
-				
-			// The input temperature
-			double inputTemp = inputPanel.getInputTemperature();
-			
-			// The output temperature
-			double outputTemp = tc.convert(inputTemp);
-			
-			outputPanel.displayTemperature(outputTemp);
+
+				// The input temperature
+				double inputTemp = inputPanel.getInputTemperature();
+
+				// The output temperature
+				double outputTemp = tc.convert(inputTemp);
+
+				outputPanel.displayTemperature(outputTemp);
 			}
 			catch(java.lang.NumberFormatException nfe) {
-				
+
 				// Do nothing. Conversion is impossible.
 			}
 		}
 	}
-	
+
 	/**
 	 * A listener for the scale switching button
 	 * @author GRV96
@@ -196,7 +194,7 @@ public class ConvFrame extends JFrame implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			IOPanel.switchScales(inputPanel, outputPanel);
 		}
 	}
