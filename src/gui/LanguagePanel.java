@@ -4,89 +4,64 @@ import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import language.LanguageManager;
-import language.TextContainer;
+import language.Language;
+import language.LanguageUpdater;
 
 /**
  * This panel enables the user to change the language of the application.
  * @author GRV96
- *
  */
 public class LanguagePanel extends JPanel {
-	
+
 	private static final long serialVersionUID = -4605260424700093571L;
 
 	/**
 	 * A JLabel informing the user they can change the language
 	 */
-	private JLabel instruction;
-	
+	private JLabel instruction = new JLabel();
+
 	/**
-	 * The object that handles the language setting.
+	 * A JComboBox containing the available languages
 	 */
-	private LanguageManager langManager;
-	
-	/**
-	 * A JComboBox that enables the user to change the language
-	 */
-	private LanguageMenu languageMenu;
+	private JComboBox<Language> langSelector = new JComboBox<Language>();
 
 	/**
 	 * Constructor
-	 * @param width
-	 * @param height
 	 */
 	public LanguagePanel() {
-		
 		setLayout(new FlowLayout());
-		instruction = new JLabel();
 		instruction.setFont(new AppFont());
-		langManager = LanguageManager.getInstance();
-		languageMenu = new LanguageMenu();
-		languageMenu.addItemListener(new LanguageItemListener());
-		languageMenu.setFont(new AppFont());
+		initLangSelector();
 		add(instruction);
-		add(languageMenu);
+		add(langSelector);
+		setInstructionText();
 	}
 
-	/**
-	 * Detects the chosen language and applies the selection.
-	 */
-	public void updateLanguage() {
-		
-		String language = (String) languageMenu.getSelectedItem();
-		
-		switch(language) {
-		case LanguageMenu.FRENCH:
-			langManager.setLanguage(LanguageManager.Language.FRENCH);
-			break;
-		case LanguageMenu.ENGLISH:
-			langManager.setLanguage(LanguageManager.Language.ENGLISH);
-			break;
-		case LanguageMenu.SPANISH:
-			langManager.setLanguage(LanguageManager.Language.SPANISH);
-			break;
-		default:
-			// Not useful.
-		}
-		
-		instruction.setText(langManager.getTextContainer().getText(TextContainer.LANGUAGE_MENU_KEY));
+	public Language getSelectedLanguage() {
+		return (Language) langSelector.getSelectedItem();
 	}
-	
-	/**
-	 * This class changes the language of the user interface upon selction.
-	 * @author GRV69
-	 *
-	 */
-	private class LanguageItemListener implements ItemListener{
 
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			
-			updateLanguage();
-		}
+	private void initLangSelector() {
+		langSelector.addItem(Language.FRENCH);
+		langSelector.addItem(Language.ENGLISH);
+		langSelector.addItem(Language.SPANISH);
+		langSelector.setFont(new AppFont());
+
+		langSelector.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				setInstructionText();
+				LanguageUpdater.getInstance().setLanguage(getSelectedLanguage());
+			}});
+	}
+
+	private void setInstructionText() {
+		Language selectedLang = getSelectedLanguage();
+		GuiElements guiElems = GuiElements.getInstance();
+		instruction.setText(guiElems.getChooseLangText(selectedLang));
 	}
 }

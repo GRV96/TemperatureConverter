@@ -5,7 +5,6 @@ import javax.swing.JComboBox;
 /**
  * Displays the temperature scales between which conversion is possible.
  * @author GRV96
- *
  */
 public class ScaleMenu extends JComboBox<String> {
 

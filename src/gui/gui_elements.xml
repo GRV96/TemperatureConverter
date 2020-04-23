@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gui_elements>
+	<pictures>
+		<thermometer_pic>thermometer.jpg</thermometer_pic>
+	</pictures>
+	<texts>
+		<choose_language>
+			<english>Choose a language.</english>
+			<french>Choisissez une langue.</french>
+			<spanish>Escoja un idioma.</spanish>
+		</choose_language>
+		<convert_btn>
+			<english>Convert</english>
+			<french>Convertir</french>
+			<spanish>Convertir</spanish>
+		</convert_btn>
+		<frame_title>
+			<english>Temperature Converter</english>
+			<french>Convertisseur de température</french>
+			<spanish>Convertidor de temperatura</spanish>
+		</frame_title>
+		<switch_scales>
+			<english>Switch scales</english>
+			<french>Inverser les échelles</french>
+			<spanish>Invertir las escalas</spanish>
+		</switch_scales>
+	</texts>
+</gui_elements>

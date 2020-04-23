@@ -12,12 +12,11 @@ import javax.swing.JTextField;
  * the input temperature and the output temperature.
  * It is not meant to be instantiated.
  * @author GRV96
- *
  */
 public abstract class IOPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = -2289247146811041138L;
-	
+
 	protected JTextField ioField;
 	protected ScaleMenu scaleMenu;
 
@@ -27,7 +26,6 @@ public abstract class IOPanel extends JPanel {
 	 * @param height
 	 */
 	protected IOPanel() {
-		
 		ioField = new JTextField();
 		ioField.setFont(new AppFont());
 		scaleMenu = new ScaleMenu();
@@ -36,25 +34,23 @@ public abstract class IOPanel extends JPanel {
 		add(ioField);
 		add(scaleMenu);
 	}
-	
+
 	/**
 	 * Gets the scale chosen by the user.
 	 * @return a string that represents the scale
 	 */
 	public String getScale() {
-		
 		return (String) scaleMenu.getSelectedItem();
 	}
-	
+
 	@Override
 	public void setSize(int width, int height) {
-		
 		super.setSize(width, height);
 		int scaleMenuWidth = 50;
 		ioField.setPreferredSize(new Dimension(width-scaleMenuWidth-40, height));
 		scaleMenu.setPreferredSize(new Dimension(scaleMenuWidth, height));
 	}
-	
+
 	/**
 	 * Switches the scales of the two given IO panels.
 	 * @param iop1
@@ -63,10 +59,8 @@ public abstract class IOPanel extends JPanel {
 	 * 		An IO panel
 	 */
 	public static void switchScales(IOPanel iop1, IOPanel iop2) {
-		
 		String scale1 = (String) iop1.scaleMenu.getSelectedItem();
 		String scale2 = (String) iop2.scaleMenu.getSelectedItem();
-		
 		iop1.scaleMenu.setSelectedItem(scale2);
 		iop2.scaleMenu.setSelectedItem(scale1);
 	}

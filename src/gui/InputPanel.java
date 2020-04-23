@@ -5,7 +5,6 @@ package gui;
  * temperature to be converted and to chose the
  * scale from which the conversion will be performed.
  * @author GRV96
- *
  */
 public class InputPanel extends IOPanel {
 
@@ -14,8 +13,7 @@ public class InputPanel extends IOPanel {
 	/**
 	 * Constructor
 	 */
-	public InputPanel()
-	{
+	public InputPanel() {
 		super();
 		ioField.setEditable(true);
 	}
@@ -25,7 +23,6 @@ public class InputPanel extends IOPanel {
 	 * @return the input temperature
 	 */
 	public double getInputTemperature() {
-		
 		return Double.parseDouble(ioField.getText());
 	}
 }
