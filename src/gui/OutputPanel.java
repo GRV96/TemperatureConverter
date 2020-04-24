@@ -1,5 +1,7 @@
 package gui;
 
+import convcreators.TemperatureScale;
+
 /**
  * This panel enables the user to chose the
  * scale to which the conversion will be
@@ -16,7 +18,7 @@ public class OutputPanel extends IOPanel {
 	public OutputPanel() {
 		super();
 		ioField.setEditable(false);
-		scaleMenu.setSelectedItem(ScaleMenu.DEG_F);
+		scaleSelector.setSelectedItem(TemperatureScale.DEG_FAHRENHEIT);
 	}
 
 	/**

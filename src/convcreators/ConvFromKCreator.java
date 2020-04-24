@@ -9,7 +9,6 @@ import converters.TemperatureConverter;
  * This class can instantiate converters that
  * convert temperatures from kelvins.
  * @author GRV96
- *
  */
 public class ConvFromKCreator extends ConverterCreator {
 
@@ -19,7 +18,6 @@ public class ConvFromKCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToCelsisus() {
-		
 		return new KCConverter();
 	}
 	
@@ -29,7 +27,6 @@ public class ConvFromKCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToFahrenheit() {
-		
 		return new KFConverter();
 	}
 
@@ -39,7 +36,6 @@ public class ConvFromKCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToKelvins() {
-		
 		return new NonConverter();
 	}
 }

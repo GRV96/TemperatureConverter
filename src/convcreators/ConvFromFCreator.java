@@ -9,7 +9,6 @@ import converters.TemperatureConverter;
  * This class can instantiate converters that
  * convert temperatures from degrees Fahrenheit.
  * @author GRV96
- *
  */
 public class ConvFromFCreator extends ConverterCreator {
 
@@ -19,7 +18,6 @@ public class ConvFromFCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToCelsisus() {
-		
 		return new FCConverter();
 	}
 
@@ -29,7 +27,6 @@ public class ConvFromFCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToFahrenheit() {
-		
 		return new NonConverter();
 	}
 
@@ -39,7 +36,6 @@ public class ConvFromFCreator extends ConverterCreator {
 	 */
 	@Override
 	protected TemperatureConverter createConvToKelvins() {
-		
 		return new FKConverter();
 	}
 }

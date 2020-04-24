@@ -1,15 +1,13 @@
 package convcreators;
 
 import converters.TemperatureConverter;
-import gui.ScaleMenu;
 
 /**
  * This class is used to instantiate temperature converters.
  * @author GRV96
- *
  */
 public abstract class ConverterCreator {
-	
+
 	/**
 	 * Instantiates a class implementing TemperatureConverter.
 	 * @param inputScale
@@ -18,58 +16,56 @@ public abstract class ConverterCreator {
 	 * 		The scale to which a conversion must be performed
 	 * @return the created instance
 	 */
-	public static TemperatureConverter create(String inputScale, String outputScale) {
-		
+	public static TemperatureConverter create(TemperatureScale inputScale,
+			TemperatureScale outputScale) {
 		TemperatureConverter converter = null;
 		ConverterCreator creator = null;
-		
-		if(inputScale.equals(ScaleMenu.DEG_C)) {
-			
+
+		switch(inputScale) {
+		case DEG_CELSIUS:
 			creator = new ConvFromCCreator();
-		}
-		else if(inputScale.equals(ScaleMenu.DEG_F)) {
-			
+			break;
+		case DEG_FAHRENHEIT:
 			creator = new ConvFromFCreator();
-		}
-		else if(inputScale.equals(ScaleMenu.KELVIN)) {
-			
+			break;
+		case KELVIN:
 			creator = new ConvFromKCreator();
+			break;
 		}
-		
+
 		converter = creator.createConverter(outputScale);
-		
+
 		return converter;
 	}
 
 	/**
-	 * Instantiates a temperature converter according to the specified output scale.
+	 * Instantiates a temperature converter
+	 * according to the specified output scale.
 	 * @param outputScale
 	 * 		the scale to which conversion will be performed
 	 * @return a temperature converter
 	 */
-	private TemperatureConverter createConverter(String outputScale) {
-		
+	private TemperatureConverter createConverter(TemperatureScale outputScale) {
 		TemperatureConverter converter = null;
-		
-		if(outputScale.equals(ScaleMenu.DEG_C)) {
-			
+
+		switch(outputScale) {
+		case DEG_CELSIUS:
 			converter = createConvToCelsisus();
-		}
-		else if(outputScale.equals(ScaleMenu.DEG_F)) {
-			
+			break;
+		case DEG_FAHRENHEIT:
 			converter = createConvToFahrenheit();
-		}
-		else if(outputScale.equals(ScaleMenu.KELVIN)) {
-			
+			break;
+		case KELVIN:
 			converter = createConvToKelvins();
+			break;
 		}
-		
+
 		return converter;
 	}
-	
+
 	protected abstract TemperatureConverter createConvToCelsisus();
-	
+
 	protected abstract TemperatureConverter createConvToFahrenheit();
-	
+
 	protected abstract TemperatureConverter createConvToKelvins();
 }

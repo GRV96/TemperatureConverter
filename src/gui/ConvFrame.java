@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import convcreators.ConverterCreator;
+import convcreators.TemperatureScale;
 import converters.TemperatureConverter;
 import language.Language;
 import language.LanguageUpdater;
@@ -144,23 +145,18 @@ public class ConvFrame extends JFrame implements Observer {
 	 */
 	private class ConversionListener implements ActionListener {
 
-		// Object that performs the conversion
 		private TemperatureConverter tc;
-
-		// Input temperatue scale
-		private String inputScale = "";
-
-		// Output temperature scale
-		private String outputScale = "";
+		private TemperatureScale inputScale = null;
+		private TemperatureScale outputScale = null;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Current input and output scales
-			String iScale = inputPanel.getScale();
-			String oScale = outputPanel.getScale();
+			TemperatureScale iScale = inputPanel.getScale();
+			TemperatureScale oScale = outputPanel.getScale();
 
 			// If the input or output scale has changed, a new converter is instantiated.
-			if(!inputScale.equals(iScale) || !outputScale.equals(oScale)) {
+			if(!iScale.equals(inputScale) || !oScale.equals(outputScale)) {
 				inputScale = iScale;
 				outputScale = oScale;
 				tc = ConverterCreator.create(inputScale, outputScale);
