@@ -10,8 +10,8 @@ import java.awt.Font;
 class AppFont extends Font {
 
 	private static final long serialVersionUID = -5745748651688084392L;
-	public static final String APP_FONT_NAME = "Dialog.plain";
-	public static final int APP_FONT_SIZE = 20;
+	private static final String APP_FONT_NAME = "Dialog.plain";
+	private static final int APP_FONT_SIZE = 20;
 
 	public AppFont() {
 		super(APP_FONT_NAME, Font.PLAIN, APP_FONT_SIZE);
