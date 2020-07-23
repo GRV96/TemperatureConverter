@@ -3,6 +3,8 @@ package gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -79,11 +81,12 @@ public class ConvFrame extends JFrame implements Observer {
 		// A panel to enter the input temperature
 		inputPanel = new InputPanel();
 		inputPanel.setSize(FRAME_WIDTH, panelHeight);
+		inputPanel.ioField.addKeyListener(new ConversionKeyListener());
 		cp.add(inputPanel);
 
 		// A button to launch the conversion
 		convBtn = new JButton();
-		convBtn.addActionListener(new ConversionListener());
+		convBtn.addActionListener(new ConversionBtnListener());
 		convBtn.setFont(new AppFont());
 
 		// A button to switch the input and output scales
@@ -158,12 +161,28 @@ public class ConvFrame extends JFrame implements Observer {
 	 * Action listener for the conversion button
 	 * @author GRV96
 	 */
-	private class ConversionListener implements ActionListener {
+	private class ConversionBtnListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			convert();
 		}
+	}
+
+	private class ConversionKeyListener implements KeyListener {
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(e.getKeyChar() == '\n') {
+				convert();
+			}
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {}
+
+		@Override
+		public void keyReleased(KeyEvent e) {}
 	}
 
 	/**

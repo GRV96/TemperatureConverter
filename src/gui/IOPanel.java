@@ -65,10 +65,8 @@ public abstract class IOPanel extends JPanel {
 	 * @param iop2 an IO panel
 	 */
 	public static void switchScales(IOPanel iop1, IOPanel iop2) {
-		TempScale scale1 =
-				(TempScale) iop1.scaleSelector.getSelectedItem();
-		TempScale scale2 =
-				(TempScale) iop2.scaleSelector.getSelectedItem();
+		TempScale scale1 = iop1.getScale();
+		TempScale scale2 = iop2.getScale();
 		iop1.scaleSelector.setSelectedItem(scale2);
 		iop2.scaleSelector.setSelectedItem(scale1);
 	}
