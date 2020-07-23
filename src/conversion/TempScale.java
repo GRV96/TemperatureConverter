@@ -1,11 +1,15 @@
-package convcreators;
+package conversion;
 
-public enum TemperatureScale {
+/**
+ * Represents temperature scales.
+ * @author GRV96
+ */
+public enum TempScale {
 	DEG_CELSIUS("°C"), DEG_FAHRENHEIT("°F"), KELVIN("K");
 	
 	private String symbol = null;
 	
-	private TemperatureScale(String symbol) {
+	private TempScale(String symbol) {
 		this.symbol = symbol;
 	}
 	

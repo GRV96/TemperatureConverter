@@ -19,10 +19,10 @@ public class InputPanel extends IOPanel {
 	}
 	
 	/**
-	 * Accesses the input temperature.
-	 * @return the input temperature
+	 * Accesses the temperature entered in this panel's field.
+	 * @return the entered temperature
 	 */
-	public double getInputTemperature() {
+	public double getTemperature() throws NumberFormatException {
 		return Double.parseDouble(ioField.getText());
 	}
 }

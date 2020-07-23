@@ -1,4 +1,4 @@
-package converters;
+package conversion.converters;
 
 import static org.junit.Assert.*;
 
@@ -6,10 +6,10 @@ import org.junit.Test;
 
 public class ConverterTests {
 	
-	TemperatureConverter tc;
+	TempConverter tc;
 
 	@Test
-	public void cfTest() {
+	public void cfTests() {
 		
 		// Instantiates a Celsius to Fahrenheit converter.
 		tc = new CFConverter();

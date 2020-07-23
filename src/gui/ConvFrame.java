@@ -13,9 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import convcreators.ConverterCreator;
-import convcreators.TemperatureScale;
-import converters.TemperatureConverter;
+import conversion.ConversionController;
+import conversion.TempScale;
 import language.Language;
 import language.LanguageUpdater;
 
@@ -30,6 +29,8 @@ public class ConvFrame extends JFrame implements Observer {
 	// Interface dimensions
 	private static final int FRAME_HEIGHT = 650;
 	private static final int FRAME_WIDTH = 520;
+
+	private ConversionController convController;
 
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
@@ -51,6 +52,7 @@ public class ConvFrame extends JFrame implements Observer {
 	 */
 	public ConvFrame() {
 		LanguageUpdater.getInstance().addObserver(this);
+		convController = new ConversionController();
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -116,6 +118,19 @@ public class ConvFrame extends JFrame implements Observer {
 		setContentPane(cp);
 	}
 
+	private void convert() {
+		try {
+			TempScale fromScale = inputPanel.getScale();
+			TempScale toScale = outputPanel.getScale();
+			double inputTemp = inputPanel.getTemperature();
+			double outputTemp = convController.convert(inputTemp, fromScale, toScale);
+			outputPanel.displayTemperature(outputTemp);
+		}
+		catch(NumberFormatException nfe) {
+			// Do nothing. Conversion is impossible.
+		}
+	}
+
 	private void setLanguage(Language lang) {
 		GuiElements guiElems = GuiElements.getInstance();
 		setTitle(guiElems.getFrameTitle(lang));
@@ -145,31 +160,9 @@ public class ConvFrame extends JFrame implements Observer {
 	 */
 	private class ConversionListener implements ActionListener {
 
-		private TemperatureConverter tc;
-		private TemperatureScale inputScale = null;
-		private TemperatureScale outputScale = null;
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Current input and output scales
-			TemperatureScale iScale = inputPanel.getScale();
-			TemperatureScale oScale = outputPanel.getScale();
-
-			// If the input or output scale has changed, a new converter is instantiated.
-			if(!iScale.equals(inputScale) || !oScale.equals(outputScale)) {
-				inputScale = iScale;
-				outputScale = oScale;
-				tc = ConverterCreator.create(inputScale, outputScale);
-			}
-
-			try {
-				double inputTemp = inputPanel.getInputTemperature();
-				double outputTemp = tc.convert(inputTemp);
-				outputPanel.displayTemperature(outputTemp);
-			}
-			catch(java.lang.NumberFormatException nfe) {
-				// Do nothing. Conversion is impossible.
-			}
+			convert();
 		}
 	}
 

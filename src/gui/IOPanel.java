@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import convcreators.TemperatureScale;
+import conversion.TempScale;
 
 /**
  * This superclass is a template to build panels for
@@ -22,8 +22,8 @@ public abstract class IOPanel extends JPanel {
 	private static final long serialVersionUID = -2289247146811041138L;
 
 	protected JTextField ioField = new JTextField();
-	protected JComboBox<TemperatureScale> scaleSelector =
-			new JComboBox<TemperatureScale>();
+	protected JComboBox<TempScale> scaleSelector =
+			new JComboBox<TempScale>();
 
 	protected IOPanel() {
 		ioField.setFont(new AppFont());
@@ -37,15 +37,15 @@ public abstract class IOPanel extends JPanel {
 	 * Returns the temperature scale chosen by the user.
 	 * @return a TemperatureScale enumeration value
 	 */
-	public TemperatureScale getScale() {
-		return (TemperatureScale) scaleSelector.getSelectedItem();
+	public TempScale getScale() {
+		return (TempScale) scaleSelector.getSelectedItem();
 	}
 
 	private void initScaleSelector() {
 		scaleSelector.setFont(new AppFont());
-		scaleSelector.addItem(TemperatureScale.DEG_CELSIUS);
-		scaleSelector.addItem(TemperatureScale.DEG_FAHRENHEIT);
-		scaleSelector.addItem(TemperatureScale.KELVIN);
+		scaleSelector.addItem(TempScale.DEG_CELSIUS);
+		scaleSelector.addItem(TempScale.DEG_FAHRENHEIT);
+		scaleSelector.addItem(TempScale.KELVIN);
 	}
 
 	@Override
@@ -65,10 +65,10 @@ public abstract class IOPanel extends JPanel {
 	 * @param iop2 an IO panel
 	 */
 	public static void switchScales(IOPanel iop1, IOPanel iop2) {
-		TemperatureScale scale1 =
-				(TemperatureScale) iop1.scaleSelector.getSelectedItem();
-		TemperatureScale scale2 =
-				(TemperatureScale) iop2.scaleSelector.getSelectedItem();
+		TempScale scale1 =
+				(TempScale) iop1.scaleSelector.getSelectedItem();
+		TempScale scale2 =
+				(TempScale) iop2.scaleSelector.getSelectedItem();
 		iop1.scaleSelector.setSelectedItem(scale2);
 		iop2.scaleSelector.setSelectedItem(scale1);
 	}
