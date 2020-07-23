@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,7 +30,8 @@ public class ConvFrame extends JFrame implements Observer {
 	private static final long serialVersionUID = 251902842150196855L;
 
 	// Interface dimensions
-	private static final int FRAME_HEIGHT = 650;
+	private static final int FRAME_GREAT_HEIGHT = 650;
+	private static final int FRAME_SMALL_HEIGHT = 250;
 	private static final int FRAME_WIDTH = 520;
 	private static final int PANEL_HEIGHT = 40;
 
@@ -56,7 +58,7 @@ public class ConvFrame extends JFrame implements Observer {
 	public ConvFrame() {
 		LanguageUpdater.getInstance().addObserver(this);
 		convController = new ConversionController();
-		setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		setSize(FRAME_WIDTH, FRAME_GREAT_HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +88,13 @@ public class ConvFrame extends JFrame implements Observer {
 		cp.add(outputPanel);
 
 		JPanel picturePanel = initPicturePanel();
-		cp.add(picturePanel);
+		if(picturePanel == null) {
+			setSize(FRAME_WIDTH, FRAME_SMALL_HEIGHT);
+			System.out.println(getHeight());
+		}
+		else {
+			cp.add(picturePanel);
+		}
 
 		Language selectedLang = languagePanel.getSelectedLanguage();
 		setLanguage(selectedLang);
@@ -147,8 +155,13 @@ public class ConvFrame extends JFrame implements Observer {
 	}
 
 	private JPanel initPicturePanel() {
-		String thermometerPicPath = GuiElements.getInstance().getThermometerPicPath();
-		ImageIcon thermometerImage = new ImageIcon(thermometerPicPath);
+		String picPath = GuiElements.getInstance().getThermometerPicPath();
+		File picFile = new File(picPath);
+		if(!picFile.exists()) {
+			return null;
+		}
+
+		ImageIcon thermometerImage = new ImageIcon(picPath);
 		JLabel pictureLabel = new JLabel(thermometerImage);
 		JPanel picturePanel = new JPanel();
 		picturePanel.add(pictureLabel);
