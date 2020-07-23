@@ -31,6 +31,7 @@ public class ConvFrame extends JFrame implements Observer {
 	// Interface dimensions
 	private static final int FRAME_HEIGHT = 650;
 	private static final int FRAME_WIDTH = 520;
+	private static final int PANEL_HEIGHT = 40;
 
 	private ConversionController convController;
 
@@ -64,57 +65,29 @@ public class ConvFrame extends JFrame implements Observer {
 	}
 
 	/**
-	 * Assembles the interface's components: input and output fields, menus and buttons.
+	 * Assembles the interface's components:
+	 * input and output fields, menus and buttons.
 	 */
 	private void buildContentPane() {
-		int panelHeight = 40;
-
 		// The JPanel that will become the content pane
 		JPanel cp = new JPanel();
 		cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
 
-		// A panel to choose the language
-		languagePanel = new LanguagePanel();
-		languagePanel.setSize(FRAME_WIDTH, panelHeight);
+		languagePanel = initLanguagePanel();
 		cp.add(languagePanel);
 
-		// A panel to enter the input temperature
-		inputPanel = new InputPanel();
-		inputPanel.setSize(FRAME_WIDTH, panelHeight);
-		inputPanel.ioField.addKeyListener(new ConversionKeyListener());
+		inputPanel = initInputPanel();
 		cp.add(inputPanel);
 
-		// A button to launch the conversion
-		convBtn = new JButton();
-		convBtn.addActionListener(new ConversionBtnListener());
-		convBtn.setFont(new AppFont());
-
-		// A button to switch the input and output scales
-		switchBtn = new JButton();
-		switchBtn.addActionListener(new SwitchListener());
-		switchBtn.setFont(new AppFont());
-
-		// The panel that displays the buttons
-		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new FlowLayout());
-		btnPanel.add(convBtn);
-		btnPanel.add(switchBtn);
+		JPanel btnPanel = initBtnPanel();
 		cp.add(btnPanel);
 
-		// A panel to display the result of the conversion
-		outputPanel = new OutputPanel();
-		outputPanel.setSize(FRAME_WIDTH, panelHeight);
+		outputPanel = initOutputPanel();
 		cp.add(outputPanel);
 
-		// A thermometer picture is displayed.
-		String thermometerPicPath = GuiElements.getInstance().getThermometerPicPath();
-		ImageIcon thermometerImage = new ImageIcon(thermometerPicPath);
-		JLabel imageLabel = new JLabel(thermometerImage);
-		JPanel imagePanel = new JPanel();
-		imagePanel.add(imageLabel);
-		cp.add(imagePanel);
+		JPanel picturePanel = initPicturePanel();
+		cp.add(picturePanel);
 
-		// The interface's language is set.
 		Language selectedLang = languagePanel.getSelectedLanguage();
 		setLanguage(selectedLang);
 
@@ -132,6 +105,54 @@ public class ConvFrame extends JFrame implements Observer {
 		catch(NumberFormatException nfe) {
 			// Do nothing. Conversion is impossible.
 		}
+	}
+
+	private JPanel initBtnPanel() {
+		// A button to launch the conversion
+		convBtn = new JButton();
+		convBtn.addActionListener(new ConversionBtnListener());
+		convBtn.setFont(new AppFont());
+
+		// A button to switch the input and output scales
+		switchBtn = new JButton();
+		switchBtn.addActionListener(new SwitchListener());
+		switchBtn.setFont(new AppFont());
+
+		// The panel that displays the buttons
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new FlowLayout());
+		btnPanel.add(convBtn);
+		btnPanel.add(switchBtn);
+
+		return btnPanel;
+	}
+
+	private InputPanel initInputPanel() {
+		InputPanel inputPanel = new InputPanel();
+		inputPanel.setSize(FRAME_WIDTH, PANEL_HEIGHT);
+		inputPanel.ioField.addKeyListener(new ConversionKeyListener());
+		return inputPanel;
+	}
+
+	private LanguagePanel initLanguagePanel() {
+		LanguagePanel languagePanel = new LanguagePanel();
+		languagePanel.setSize(FRAME_WIDTH, PANEL_HEIGHT);
+		return languagePanel;
+	}
+
+	private OutputPanel initOutputPanel() {
+		OutputPanel outputPanel = new OutputPanel();
+		outputPanel.setSize(FRAME_WIDTH, PANEL_HEIGHT);
+		return outputPanel;
+	}
+
+	private JPanel initPicturePanel() {
+		String thermometerPicPath = GuiElements.getInstance().getThermometerPicPath();
+		ImageIcon thermometerImage = new ImageIcon(thermometerPicPath);
+		JLabel pictureLabel = new JLabel(thermometerImage);
+		JPanel picturePanel = new JPanel();
+		picturePanel.add(pictureLabel);
+		return picturePanel;
 	}
 
 	private void setLanguage(Language lang) {
