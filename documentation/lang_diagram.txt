@@ -1,0 +1,28 @@
+@startuml
+
+package languages {
+
+enum Language {
+ENGLISH
+FRENCH
+SPANISH
+-nativeName: String
+-Language(nativeName: String)
++toString(): String
+}
+
+class LanguageUpdater <<Singleton>> {
+{static}-instance: LanguageUpdater = null
+-LanguageUpdater()
+{static}+getInstance(): LanguageUpdater
++getLanguage(): Language
++setLanguage(language: Language)
+}
+
+java.util.Observer <|-- LanguageUpdater
+LanguageUpdater --> Language: -selectedLang
+
+}
+'package languages
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+package conversion {
+
+package converters {
+
+interface TempConverter {
++convert(temperature: double): double
+}
+
+TempConverter <|.. CFConverter
+TempConverter <|.. CKConverter
+TempConverter <|.. FCConverter
+TempConverter <|.. FKConverter
+TempConverter <|.. KCConverter
+TempConverter <|.. KFConverter
+TempConverter <|.. NonConverter
+}
+'package converters
+
+enum TempScale {
+DEG_CELSISUS
+DEG_FAHRENHEIT
+KELVIN
+-symbol: String
+-TempScale(symbol: String)
++toString(): String
+}
+
+class ConversionMaterial {
++fromScale: TempScale {readOnly}
++toScale: TempScale {readOnly}
++ConversionMaterial(fromScale: TempScale, toScale: TempScale)
++matches(fromScale: TempScale, toScale: TempScale): boolean
+}
+
+class ConversionController {
++ConversionController()
++convert(temperature: double, fromScale: TempScale, toScale: TempScale): double
+-createConverter(fromScale: TempScale, toScale: TempScale): TempConverter
+-getConverter(fromScale: TempScale, toScale: TempScale): TempConverter
+}
+
+ConversionMaterial --> "2" TempScale
+ConversionMaterial --> TempConverter: +converter {readOnly}
+ConversionController ..> TempScale
+ConversionController ..> TempConverter
+ConversionController "1" o-- "*" ConversionMaterial: -cmSet {Set}
+
+note right of ConversionMaterial: Private class nested in\nConversionController
+
+}
+'package conversion
+
+@enduml
