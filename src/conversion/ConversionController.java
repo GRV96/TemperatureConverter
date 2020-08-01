@@ -1,8 +1,5 @@
 package conversion;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import conversion.converters.CFConverter;
 import conversion.converters.CKConverter;
 import conversion.converters.FCConverter;
@@ -19,38 +16,11 @@ import conversion.converters.TempConverter;
  */
 public class ConversionController {
 
-	private class ConversionMaterial {
+	private TempConverter converter = null;
+	private TempScale prevFromScale = null;
+	private TempScale prevToScale = null;
 
-		public final TempScale fromScale;
-		public final TempScale toScale;
-		public final TempConverter converter;
-
-		public ConversionMaterial(TempScale fromScale, TempScale toScale) {
-			this.fromScale = fromScale;
-			this.toScale = toScale;
-			this.converter = createConverter(fromScale, toScale);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if(!(obj instanceof ConversionMaterial)) {
-				return false;
-			}
-			ConversionMaterial other = (ConversionMaterial) obj;
-			return other.matches(fromScale, toScale);
-		}
-
-		public boolean matches(TempScale fromScale, TempScale toScale) {
-			return this.fromScale.equals(fromScale)
-					&& this.toScale.equals(toScale);
-		}
-	} // class ConversionMaterial
-
-	private Set<ConversionMaterial> cmSet = null;
-
-	public ConversionController() {
-		cmSet = new HashSet<ConversionMaterial>();
-	}
+	public ConversionController() {}
 
 	/**
 	 * Converts the given temperature.
@@ -65,8 +35,11 @@ public class ConversionController {
 	 */
 	public double convert(double temperature, TempScale fromScale,
 			TempScale toScale) {
-		TempConverter tc = getConverter(fromScale, toScale);
-		return tc.convert(temperature);
+		if(!prevScalesAreUpToDate(fromScale, toScale) || converter == null) {
+			updatePrevScales(fromScale, toScale);
+			converter = createConverter(fromScale, toScale);
+		}
+		return converter.convert(temperature);
 	}
 
 	private static TempConverter createConverter(TempScale fromScale,
@@ -115,15 +88,12 @@ public class ConversionController {
 		return tc;
 	}
 
-	private TempConverter getConverter(TempScale fromScale, TempScale toScale) {
-		for(ConversionMaterial cm: cmSet) {
-			if(cm.matches(fromScale, toScale)) {
-				return cm.converter;
-			}
-		}
+	private boolean prevScalesAreUpToDate(TempScale fromScale, TempScale toScale) {
+		return fromScale.equals(prevFromScale) && toScale.equals(prevToScale);
+	}
 
-		ConversionMaterial cm = new ConversionMaterial(fromScale, toScale);
-		cmSet.add(cm);
-		return cm.converter;
+	private void updatePrevScales(TempScale fromScale, TempScale toScale) {
+		prevFromScale = fromScale;
+		prevToScale = toScale;
 	}
 }

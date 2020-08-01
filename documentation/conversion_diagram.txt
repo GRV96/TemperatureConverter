@@ -26,28 +26,18 @@ KELVIN
 +toString(): String
 }
 
-class ConversionMaterial {
-+fromScale: TempScale {readOnly}
-+toScale: TempScale {readOnly}
-+ConversionMaterial(fromScale: TempScale, toScale: TempScale)
-+matches(fromScale: TempScale, toScale: TempScale): boolean
-}
-
 class ConversionController {
+-prevFromScale: TempScale
+-prevToScale: TempScale
 +ConversionController()
 +convert(temperature: double, fromScale: TempScale, toScale: TempScale): double
--createConverter(fromScale: TempScale, toScale: TempScale): TempConverter
--getConverter(fromScale: TempScale, toScale: TempScale): TempConverter
+-createConverter(fromScale: TempScale, toScale: TempScale): TempConverter {static}
+-prevScalesAreUpToDae(fromScale: TempScale, toScale: TempScale): boolean
+-updatePrevScales(fromScale: TempScale, toScale: TempScale)
 }
 
-ConversionMaterial --> "2" TempScale
-ConversionMaterial --> TempConverter: +converter {readOnly}
-ConversionController ..> TempScale
-ConversionController ..> TempConverter
-ConversionController "1" o-- "*" ConversionMaterial: -cmSet {Set}
-
-note right of ConversionMaterial: Private class nested in\nConversionController
-
+ConversionController --> "2" TempScale
+ConversionController --> TempConverter: -converter
 }
 'package conversion
 
