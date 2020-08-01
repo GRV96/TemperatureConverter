@@ -27,6 +27,6 @@ public class OutputPanel extends IOPanel {
 	 * 		The temperature to display
 	 */
 	public void displayTemperature(double temperature) {
-		ioField.setText("" + temperature);
+		ioField.setText(String.valueOf(temperature));
 	}
 }

@@ -43,10 +43,10 @@ public class GuiElements {
 	private static final String FRAME_TITLE_TAG = "frame_title";
 	private static final String SWITCH_SCALES_TAG = "switch_scales";
 
-	Map<Language, String> chooseLangText = new HashMap<Language, String>();
-	Map<Language, String> convertBtnText = new HashMap<Language, String>();
-	Map<Language, String> frameTitle = new HashMap<Language, String>();
-	Map<Language, String> switchScalesText = new HashMap<Language, String>();
+	private Map<Language, String> chooseLangText = new HashMap<Language, String>();
+	private Map<Language, String> convertBtnText = new HashMap<Language, String>();
+	private Map<Language, String> frameTitle = new HashMap<Language, String>();
+	private Map<Language, String> switchScalesText = new HashMap<Language, String>();
 
 	private String thermometerPicPath = null;
 
@@ -90,7 +90,7 @@ public class GuiElements {
 	 * @param element a DOM element node
 	 * @return the element children of the given element
 	 */
-	private List<Element> getElementChildrenOf(Element element) {
+	private static List<Element> getElementChildrenOf(Element element) {
 		List<Element> elemChildren = new ArrayList<Element>();
 		NodeList children = element.getChildNodes();
 		int childCount = children.getLength();
@@ -126,7 +126,7 @@ public class GuiElements {
 		}
 	}
 
-	private void parseMultilangElement
+	private static void parseMultilangElement
 	(Element multilangElement, Map<Language, String> multilangMap) {
 		List<Element> children = getElementChildrenOf(multilangElement);
 		for(Element child: children) {

@@ -5,7 +5,6 @@ import java.awt.Font;
 /**
  * Defines a font for every text in the user interface.
  * @author GRV96
- *
  */
 class AppFont extends Font {
 
