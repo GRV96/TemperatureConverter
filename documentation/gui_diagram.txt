@@ -1,0 +1,122 @@
+@startuml
+package java.util {
+class Observable
+interface Observer
+
+Observer "*" --o "1" Observable
+}
+
+package conversion {
+class ConversionController
+enum TempScale
+}
+
+package language {
+class LanguageUpdater <<(S,#FF7700) Singleton>>
+enum Language
+
+Observable <|-- LanguageUpdater
+}
+
+package gui {
+class AppFont {
+-APP_FONT_NAME: String = "Dialog.plain" {static} {readOnly}
+-APP_FONT_SIZE: int = 20 {static} {readOnly}
++AppFont()
+}
+
+class ConvFrame {
+-FRAME_GREAT_HEIGHT: int = 650 {static} {readOnly}
+-FRAME_SMALL_HEIGHT: int = 250 {static} {readOnly}
+-FRAME_WIDTH: int = 520 {static} {readOnly}
+-PANEL_HEIGHT: int = 40 {static} {readOnly}
+-convBtn: JButton
+-switchBtn: JButton
++ConvFrame()
+-buildContentPane()
+-convert()
+-initBtnPanel(): JPanel
+-initInputPanel(): InputPanel
+-initLanguagePanel(): LanguagePanel
+-initOutputPanel(): OutputPanel
+-initPicturePanel(): JPanel
+-setLanguage()
++main(args: String[]) {static}
+}
+
+class GuiElements <<(S,#FF7700) Singleton>> {
+-uniqueInstance: GuiElements {static}
+-GUI_ELEMENTS_FILE_PATH: String {static} {readOnly}
+-chooseLangText: Map<Language, String>
+-convertBtnText: Map<Language, String>
+-frameTitle: Map<Language, String>
+-switchScalesText: Map<Language, String>
+-thermometerPicPath: String
++GuiElements()
+-generateRootElement(): Element {static}
++getChoosLangText(lang: Language): String
++getConvertBtnText(lang: Language): String
+-getElementChildrenOf(element: Element): List<Element> {static}
++getFrameTitle(lang: Language): String
++getInstance(): GuiElements {static}
++getSwitchScalesText(lang: Language): String
++getThermometerPicPath(lang: Language): String
+-parseGuiElemFile()
+}
+
+abstract class IOPanel {
+-SCALE_SELECTOR_WIDTH: int = 50 {static} {readOnly}
+#ioFied: JTextField
+#scaleSelector: JComboBox<TempScale>
+#IOPanel()
++getScale(): TempScale
+-initScaleSelector()
++setSize(width: int, height: int)
++switchScales(iop1: IOPanel, iop2: IOPanel) {static}
+}
+
+class InputPanel {
++InputPanel()
++getTemperature(): double
+}
+
+class OutputPanel {
++OutputPanel()
++diplayTemperature(temperature: double)
+}
+
+class LanguagePanel {
+-instruction: JLabel
+-langSelector: JComboBox<Language>
++LanguagePanel()
++getSelectedLanguage(): Language
+-initLangSelector()
+-setInstructionText()
+}
+
+java.awt.Font <|-- AppFont
+Observer <|.. ConvFrame
+javax.swing.JPanel <|-- IOPanel
+javax.swing.JPanel <|-- LanguagePanel
+
+ConversionController <-- ConvFrame: -convController
+ConvFrame ..> Language
+TempScale <.. ConvFrame
+GuiElements ..> Language
+TempScale <.. IOPanel
+IOPanel ..> AppFont
+OutputPanel ..> TempScale
+LanguagePanel ..> LanguageUpdater
+
+ConvFrame ..> AppFont
+ConvFrame ..> GuiElements
+ConvFrame --> InputPanel: -inputPanel
+ConvFrame --> LanguagePanel: -languagePanel
+ConvFrame --> OutputPanel: -outputPanel
+IOPanel <|-- InputPanel
+IOPanel <|-- OutputPanel
+LanguagePanel ..> AppFont
+}
+'package gui
+
+@enduml

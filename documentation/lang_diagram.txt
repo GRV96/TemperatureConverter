@@ -11,7 +11,7 @@ SPANISH
 +toString(): String
 }
 
-class LanguageUpdater <<Singleton>> {
+class LanguageUpdater <<(S,#FF7700) Singleton>> {
 {static}-instance: LanguageUpdater = null
 -LanguageUpdater()
 {static}+getInstance(): LanguageUpdater
@@ -19,7 +19,7 @@ class LanguageUpdater <<Singleton>> {
 +setLanguage(language: Language)
 }
 
-java.util.Observer <|-- LanguageUpdater
+java.util.Observable <|-- LanguageUpdater
 LanguageUpdater --> Language: -selectedLang
 
 }
