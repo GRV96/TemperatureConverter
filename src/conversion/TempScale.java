@@ -1,11 +1,11 @@
 package conversion;
 
 /**
- * Represents temperature scales.
+ * This enumeration represents temperature scales.
  * @author GRV96
  */
 public enum TempScale {
-	DEG_CELSIUS("°C"), DEG_FAHRENHEIT("°F"), KELVIN("K");
+	DEG_CELSIUS("Â°C"), DEG_FAHRENHEIT("Â°F"), KELVIN("K");
 	
 	private String symbol = null;
 	

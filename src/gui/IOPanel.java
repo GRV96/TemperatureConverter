@@ -61,8 +61,8 @@ public abstract class IOPanel extends JPanel {
 
 	/**
 	 * Switches the scales of the two given IO panels.
-	 * @param iop1 an IO panel
-	 * @param iop2 an IO panel
+	 * @param iop1 - an IO panel
+	 * @param iop2 - an IO panel
 	 */
 	public static void switchScales(IOPanel iop1, IOPanel iop2) {
 		TempScale scale1 = iop1.getScale();
