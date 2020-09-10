@@ -19,21 +19,23 @@ public class GuiConvApp implements Observer {
 	}
 
 	private void convertInUi() {
-		try {
-			ConversionData convData = getConvDataFromUi();
+		ConversionData convData = getConvDataFromUi();
+		if(convData != null) {
 			double outputTemp = convController.convert(convData);
 			convGui.displayTemperature(outputTemp);
 		}
-		catch(NumberFormatException nfe) {
-			// Do nothing. Conversion is impossible.
-		}
 	}
 
-	private ConversionData getConvDataFromUi() throws NumberFormatException {
-		double inputTemp = convGui.getInputTemperature(); // Can throw the exception.
-		TempScale inputScale = convGui.getInputScale();
-		TempScale fromScale = convGui.getOutputScale();
-		return new ConversionData(inputTemp, inputScale, fromScale);
+	private ConversionData getConvDataFromUi() {
+		try {
+			double inputTemp = convGui.getInputTemperature(); // Can throw the exception.
+			TempScale inputScale = convGui.getInputScale();
+			TempScale fromScale = convGui.getOutputScale();
+			return new ConversionData(inputTemp, inputScale, fromScale);
+		}
+		catch(NumberFormatException nfe) {
+			return null;
+		}
 	}
 
 	public static void main(String[] args) {
