@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import conversion.ConversionController;
 import conversion.TempScale;
 import language.Language;
 
@@ -23,7 +22,7 @@ import language.Language;
  * The application's user interface
  * @author GRV96
  */
-public class ConvFrame extends Observable {
+public class ConvGui extends Observable {
 
 	private static final long serialVersionUID = 251902842150196855L;
 
@@ -53,7 +52,7 @@ public class ConvFrame extends Observable {
 	/**
 	 * Constructor
 	 */
-	public ConvFrame() {
+	public ConvGui() {
 		frame.setSize(FRAME_WIDTH, FRAME_GREAT_HEIGHT);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

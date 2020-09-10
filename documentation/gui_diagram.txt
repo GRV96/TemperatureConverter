@@ -1,15 +1,23 @@
 @startuml
-package java.util {
-class Observable
-interface Observer
-
-Observer "*" --o "1" Observable
-}
-
 package conversion {
-class ConversionController
 enum TempScale
 }
+
+package java.util {
+class Observable {
++addObserver(o: Observer)
++hasChanged()
++notifyObservers()
++setChanged()
+}
+
+interface Observer {
++update(o: Observable, arg: Object)
+}
+
+Observable "1" o-- "*" Observer
+}
+'package java.util
 
 package language {
 class LanguageUpdater <<(S,#FF7700) Singleton>>
@@ -25,23 +33,26 @@ class AppFont {
 +AppFont()
 }
 
-class ConvFrame {
+class ConvGui {
 -FRAME_GREAT_HEIGHT: int = 650 {static} {readOnly}
 -FRAME_SMALL_HEIGHT: int = 250 {static} {readOnly}
 -FRAME_WIDTH: int = 520 {static} {readOnly}
 -PANEL_HEIGHT: int = 40 {static} {readOnly}
+-frame: JFrame
 -convBtn: JButton
 -switchBtn: JButton
-+ConvFrame()
++ConvGui()
 -buildContentPane()
--convert()
++displayTemperature(temperature: double)
++getInputScale(): TempScale
++getInputTemperature(): double
++getOutputScale(): TempScale
 -initBtnPanel(): JPanel
 -initInputPanel(): InputPanel
 -initLanguagePanel(): LanguagePanel
 -initOutputPanel(): OutputPanel
 -initPicturePanel(): JPanel
--setLanguage()
-+main(args: String[]) {static}
++setLanguage(lang: Language)
 }
 
 class GuiElements <<(S,#FF7700) Singleton>> {
@@ -95,24 +106,23 @@ class LanguagePanel {
 }
 
 java.awt.Font <|-- AppFont
-Observer <|.. ConvFrame
+Observable <|-- ConvGui
 javax.swing.JPanel <|-- IOPanel
 javax.swing.JPanel <|-- LanguagePanel
 
-ConversionController <-- ConvFrame: -convController
-ConvFrame ..> Language
-TempScale <.. ConvFrame
+ConvGui ..> Language
+TempScale <.. ConvGui
 GuiElements ..> Language
 TempScale <.. IOPanel
 IOPanel ..> AppFont
 OutputPanel ..> TempScale
 LanguagePanel ..> LanguageUpdater
 
-ConvFrame ..> AppFont
-ConvFrame ..> GuiElements
-ConvFrame --> InputPanel: -inputPanel
-ConvFrame --> LanguagePanel: -languagePanel
-ConvFrame --> OutputPanel: -outputPanel
+ConvGui ..> AppFont
+ConvGui ..> GuiElements
+ConvGui --> InputPanel: -inputPanel
+ConvGui --> LanguagePanel: -languagePanel
+ConvGui --> OutputPanel: -outputPanel
 IOPanel <|-- InputPanel
 IOPanel <|-- OutputPanel
 LanguagePanel ..> AppFont

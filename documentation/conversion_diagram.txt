@@ -21,21 +21,40 @@ enum TempScale {
 DEG_CELSISUS
 DEG_FAHRENHEIT
 KELVIN
+-DEG_C_SYMBOL: String = "°C" {static} {readonly}
+-DEG_F_SYMBOL: String = "°F" {static} {readonly}
+-KELVIN_SYMBOL: String = "K" {static} {readonly}
 -symbol: String
 -TempScale(symbol: String)
++fromChar(c: char): TempScale {static}
++fromString(s: string): TempScale {static}
 +toString(): String
 }
 
-class ConversionController {
--prevFromScale: TempScale
--prevToScale: TempScale
-+ConversionController()
-+convert(temperature: double, fromScale: TempScale, toScale: TempScale): double
--createConverter(fromScale: TempScale, toScale: TempScale): TempConverter {static}
--prevScalesAreUpToDae(fromScale: TempScale, toScale: TempScale): boolean
--updatePrevScales(fromScale: TempScale, toScale: TempScale)
+class ConversionData {
+-temperature: double
+-inputScale: TempScale
+-outputScale: TempScale
++ConversionData(temperature: double, inputScale: TempScale, outputScale: TempScale)
++createInstance(temperatureStr: String, inputScalStr: String, outputScaleStr: String): ConversionData {static}
++getTemperature(): double
++getInputScale(): TempScale
++getOutputScale(): TempScale
 }
 
+class ConversionController {
+-prevInputScale: TempScale
+-prevOutputScale: TempScale
++ConversionController()
++convert(cd: ConversionData): double
++convert(temperature: double, inputScale: TempScale, outputScale: TempScale): double
+-createConverter(inputScale: TempScale, outputScale: TempScale): TempConverter {static}
+-prevScalesAreUpToDae(inputScale: TempScale, outputScale: TempScale): boolean
+-updatePrevScales(inputScale: TempScale, outputScale: TempScale)
+}
+
+ConversionData --> "2" TempScale
+ConversionController ..> ConversionData
 ConversionController --> "2" TempScale
 ConversionController --> TempConverter: -converter
 }

@@ -26,7 +26,7 @@ import language.Language;
  */
 public class GuiElements {
 
-	private static final GuiElements uniqueInstance = new GuiElements();
+	private static GuiElements uniqueInstance = null;
 
 	private static final String GUI_ELEMENTS_FILE_PATH = "src/gui/gui_elements.xml";
 
@@ -105,9 +105,16 @@ public class GuiElements {
 
 	public String getFrameTitle(Language lang) {return frameTitle.get(lang);}
 
-	public static GuiElements getInstance() {return uniqueInstance;}
+	public static GuiElements getInstance() {
+		if(uniqueInstance == null) {
+			uniqueInstance = new GuiElements();
+		}
+		return uniqueInstance;
+	}
 
-	public String getSwitchScalesText(Language lang) {return switchScalesText.get(lang);}
+	public String getSwitchScalesText(Language lang) {
+		return switchScalesText.get(lang);
+	}
 
 	public String getThermometerPicPath() {return thermometerPicPath;}
 

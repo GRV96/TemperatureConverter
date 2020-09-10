@@ -1,0 +1,53 @@
+@startuml
+package conversion {
+class ConversionController
+class ConversionData
+
+ConversionController ..> ConversionData
+}
+
+package gui {
+class ConvGui
+}
+
+package java.util {
+class Observable {
++addObserver(o: Observer)
++hasChanged()
++notifyObservers()
++setChanged()
+}
+
+interface Observer {
++update(o: Observable, arg: Object)
+}
+
+Observable "1" o-- "*" Observer
+}
+'package java.util
+
+class CmdLineConvApp {
+-getConvDataFromCmdLine(args: String[]): ConversionData
++main(args: String[]) {static}
+}
+
+class GuiConvApp{
+-convController: ConversionController
+-convGui: ConvGui
+-GuiConvApp()
+-convertInUi()
+-getConvDataFromUi(): ConversionData
++main(args: String[]) {static}
+}
+
+Observable <|-- ConvGui
+Observer <|.. GuiConvApp
+
+CmdLineConvApp ..> ConversionController
+CmdLineConvApp ..> ConversionData
+
+GuiConvApp --> ConvGui: -convGui
+GuiConvApp --> ConversionController: -convController
+GuiConvApp ..> ConversionData
+
+@enduml
