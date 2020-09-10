@@ -8,17 +8,14 @@ import gui.ConvFrame;
 import language.Language;
 import language.LanguageUpdater;
 
-public final class ConvApp implements Observer {
+public class GuiConvApp implements Observer {
 
 	private ConversionController convController = new ConversionController();
-	private ConvFrame convFrame = null;
+	private ConvFrame convFrame = new ConvFrame();
 
-	public ConvApp(boolean createGui) {
-		if(createGui) {
-			LanguageUpdater.getInstance().addObserver(this);
-			convFrame = new ConvFrame();
-			convFrame.addObserver(this);
-		}
+	public GuiConvApp() {
+		LanguageUpdater.getInstance().addObserver(this);
+		convFrame.addObserver(this);
 	}
 
 	private void convertInUI() {
@@ -32,14 +29,6 @@ public final class ConvApp implements Observer {
 		}
 	}
 
-	private static ConversionData getConvDataFromCmdLine(String[] args) {
-		if(args.length < 3) {
-			return null;
-		}
-		// Returns null if args are invalid.
-		return ConversionData.createInstance(args[0], args[1], args[2]);
-	}
-
 	private ConversionData getConvDataFromUI() throws NumberFormatException {
 		double inputTemp = convFrame.getInputTemperature(); // Can throw the exception.
 		TempScale inputScale = convFrame.getInputScale();
@@ -48,16 +37,7 @@ public final class ConvApp implements Observer {
 	}
 
 	public static void main(String[] args) {
-		ConversionData convData = getConvDataFromCmdLine(args);
-		ConvApp ca = null;
-		if(convData == null) { // Args are invalid.
-			ca = new ConvApp(true);
-		}
-		else {
-			ca = new ConvApp(false);
-			double outputTemp = ca.convController.convert(convData);
-			System.out.println(outputTemp);
-		}
+		new GuiConvApp();
 	}
 
 	@Override
