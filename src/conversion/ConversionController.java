@@ -17,37 +17,45 @@ import conversion.converters.TempConverter;
 public class ConversionController {
 
 	private TempConverter converter = null;
-	private TempScale prevFromScale = null;
-	private TempScale prevToScale = null;
+	private TempScale prevInputScale = null;
+	private TempScale prevOutputScale = null;
 
 	public ConversionController() {}
 
 	/**
-	 * Converts the given temperature.
-	 * @param temperature
-	 * 		The temperature to be converted
-	 * @param fromScale
-	 * 		The scale from which conversion is performed
-	 * @param toScale
-	 * 		The scale to which conversion is performed
+	 * Performs the temperature conversion defined by parameter cd.
+	 * @param cd - a ConversionData instance
 	 * @return
-	 * 		The converted temperature
+	 * 		the converted temperature
 	 */
-	public double convert(double temperature, TempScale fromScale,
-			TempScale toScale) {
-		if(!prevScalesAreUpToDate(fromScale, toScale) || converter == null) {
-			updatePrevScales(fromScale, toScale);
-			converter = createConverter(fromScale, toScale);
+	public double convert(ConversionData cd) {
+		return convert(cd.getTemperature(),
+				cd.getInputScale(), cd.getOutputScale());
+	}
+
+	/**
+	 * Converts the given temperature.
+	 * @param temperature - the temperature to be converted
+	 * @param inputScale - the scale from which conversion is performed
+	 * @param outputScale - the scale to which conversion is performed
+	 * @return
+	 * 		the converted temperature
+	 */
+	public double convert(double temperature, TempScale inputScale,
+			TempScale outputScale) {
+		if(!prevScalesAreUpToDate(inputScale, outputScale) || converter == null) {
+			updatePrevScales(inputScale, outputScale);
+			converter = createConverter(inputScale, outputScale);
 		}
 		return converter.convert(temperature);
 	}
 
-	private static TempConverter createConverter(TempScale fromScale,
-			TempScale toScale) {
+	private static TempConverter createConverter(TempScale inputScale,
+			TempScale outputScale) {
 		TempConverter tc = null;
-		switch(fromScale) {
+		switch(inputScale) {
 		case DEG_CELSIUS:
-			switch(toScale) {
+			switch(outputScale) {
 			case DEG_CELSIUS:
 				tc = new NonConverter();
 				break;
@@ -60,7 +68,7 @@ public class ConversionController {
 			}
 			break;
 		case DEG_FAHRENHEIT:
-			switch(toScale) {
+			switch(outputScale) {
 			case DEG_CELSIUS:
 				tc = new FCConverter();
 				break;
@@ -73,7 +81,7 @@ public class ConversionController {
 			}
 			break;
 		case KELVIN:
-			switch(toScale) {
+			switch(outputScale) {
 			case DEG_CELSIUS:
 				tc = new KCConverter();
 				break;
@@ -88,12 +96,12 @@ public class ConversionController {
 		return tc;
 	}
 
-	private boolean prevScalesAreUpToDate(TempScale fromScale, TempScale toScale) {
-		return fromScale.equals(prevFromScale) && toScale.equals(prevToScale);
+	private boolean prevScalesAreUpToDate(TempScale inputScale, TempScale outputScale) {
+		return inputScale.equals(prevInputScale) && outputScale.equals(prevOutputScale);
 	}
 
-	private void updatePrevScales(TempScale fromScale, TempScale toScale) {
-		prevFromScale = fromScale;
-		prevToScale = toScale;
+	private void updatePrevScales(TempScale inputScale, TempScale outputScale) {
+		prevInputScale = inputScale;
+		prevOutputScale = outputScale;
 	}
 }

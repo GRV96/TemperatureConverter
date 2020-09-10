@@ -116,7 +116,8 @@ public class ConvFrame extends Observable {
 	/**
 	 * Accessor of the temperature inputed by the user.
 	 * @return the temperature to convert
-	 * @throws NumberFormatException
+	 * @throws NumberFormatException if the text in the input field is not a
+	 * 		valid real number.
 	 */
 	public double getInputTemperature() throws NumberFormatException {
 		return inputPanel.getTemperature();
