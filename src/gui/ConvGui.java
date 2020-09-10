@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,16 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import conversion.ConversionController;
 import conversion.TempScale;
 import language.Language;
-import language.LanguageUpdater;
 
 /**
  * The application's user interface
  * @author GRV96
  */
-public class ConvFrame extends JFrame implements Observer {
+public class ConvGui extends Observable {
 
 	private static final long serialVersionUID = 251902842150196855L;
 
@@ -35,7 +32,7 @@ public class ConvFrame extends JFrame implements Observer {
 	private static final int FRAME_WIDTH = 520;
 	private static final int PANEL_HEIGHT = 40;
 
-	private ConversionController convController;
+	private JFrame frame = new JFrame();
 
 	// Allows to select the language.
 	private LanguagePanel languagePanel;
@@ -55,15 +52,13 @@ public class ConvFrame extends JFrame implements Observer {
 	/**
 	 * Constructor
 	 */
-	public ConvFrame() {
-		LanguageUpdater.getInstance().addObserver(this);
-		convController = new ConversionController();
-		setSize(FRAME_WIDTH, FRAME_GREAT_HEIGHT);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public ConvGui() {
+		frame.setSize(FRAME_WIDTH, FRAME_GREAT_HEIGHT);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		buildContentPane();
-		setVisible(true);
+		frame.setVisible(true);
 	}
 
 	/**
@@ -89,8 +84,7 @@ public class ConvFrame extends JFrame implements Observer {
 
 		JPanel picturePanel = initPicturePanel();
 		if(picturePanel == null) {
-			setSize(FRAME_WIDTH, FRAME_SMALL_HEIGHT);
-			System.out.println(getHeight());
+			frame.setSize(FRAME_WIDTH, FRAME_SMALL_HEIGHT);
 		}
 		else {
 			cp.add(picturePanel);
@@ -99,20 +93,41 @@ public class ConvFrame extends JFrame implements Observer {
 		Language selectedLang = languagePanel.getSelectedLanguage();
 		setLanguage(selectedLang);
 
-		setContentPane(cp);
+		frame.setContentPane(cp);
 	}
 
-	private void convert() {
-		try {
-			TempScale fromScale = inputPanel.getScale();
-			TempScale toScale = outputPanel.getScale();
-			double inputTemp = inputPanel.getTemperature();
-			double outputTemp = convController.convert(inputTemp, fromScale, toScale);
-			outputPanel.displayTemperature(outputTemp);
-		}
-		catch(NumberFormatException nfe) {
-			// Do nothing. Conversion is impossible.
-		}
+	/**
+	 * Sets the temperature to display in the output field.
+	 * @param temperature - the temperature to display
+	 */
+	public void displayTemperature(double temperature) {
+		outputPanel.displayTemperature(temperature);
+	}
+
+	/**
+	 * Accessor of the scale from which the conversion will be performed.
+	 * @return a TemperatureScale enumeration value
+	 */
+	public TempScale getInputScale() {
+		return inputPanel.getScale();
+	}
+
+	/**
+	 * Accessor of the temperature inputed by the user.
+	 * @return the temperature to convert
+	 * @throws NumberFormatException if the text in the input field is not a
+	 * 		valid real number.
+	 */
+	public double getInputTemperature() throws NumberFormatException {
+		return inputPanel.getTemperature();
+	}
+
+	/**
+	 * Accessor of the scale to which the conversion will be performed.
+	 * @return a TemperatureScale enumeration value
+	 */
+	public TempScale getOutputScale() {
+		return outputPanel.getScale();
 	}
 
 	private JPanel initBtnPanel() {
@@ -168,27 +183,15 @@ public class ConvFrame extends JFrame implements Observer {
 		return picturePanel;
 	}
 
-	private void setLanguage(Language lang) {
+	/**
+	 * Changes the language of the texts displayed in this frame.
+	 * @param lang - a value of the enumeration Language
+	 */
+	public void setLanguage(Language lang) {
 		GuiElements guiElems = GuiElements.getInstance();
-		setTitle(guiElems.getFrameTitle(lang));
+		frame.setTitle(guiElems.getFrameTitle(lang));
 		convBtn.setText(guiElems.getConvertBtnText(lang));
 		switchBtn.setText(guiElems.getSwitchScalesText(lang));
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof LanguageUpdater) {
-			LanguageUpdater langUpdater = (LanguageUpdater) o;
-			Language selectedLang = langUpdater.getLanguage();
-			setLanguage(selectedLang);
-		}
-	}
-
-	/**
-	 * Starts all the stuff.
-	 */
-	public static void main(String[] args) {
-		new ConvFrame();
 	}
 
 	/**
@@ -199,7 +202,8 @@ public class ConvFrame extends JFrame implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			convert();
+			setChanged();
+			notifyObservers();
 		}
 	}
 
@@ -208,7 +212,8 @@ public class ConvFrame extends JFrame implements Observer {
 		@Override
 		public void keyTyped(KeyEvent e) {
 			if(e.getKeyChar() == '\n') {
-				convert();
+				setChanged();
+				notifyObservers();
 			}
 		}
 

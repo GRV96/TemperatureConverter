@@ -17,10 +17,12 @@ public class InputPanel extends IOPanel {
 		super();
 		ioField.setEditable(true);
 	}
-	
+
 	/**
 	 * Accesses the temperature entered in this panel's field.
 	 * @return the entered temperature
+	 * @throws NumberFormatException if the text in the field is not a
+	 * 		valid real number.
 	 */
 	public double getTemperature() throws NumberFormatException {
 		return Double.parseDouble(ioField.getText());
