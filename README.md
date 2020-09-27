@@ -23,6 +23,5 @@ java -jar temperature_converter.jar 0 F K
 
 java -jar temperature_converter.jar -40 °C °F
 
-Scripts in directory documentation can be parsed in [PlantUML]
-(https://www.planttext.com/) to produce UML diagrams. Documentation of PlantUML
-is available [here](https://plantuml.com/en/).
+Scripts in directory documentation can be parsed in [PlantUML](https://www.planttext.com/)
+to produce UML diagrams. Documentation of PlantUML is available [here](https://plantuml.com/en/).
