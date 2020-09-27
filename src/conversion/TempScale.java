@@ -61,7 +61,10 @@ public enum TempScale {
 		else if(s.equals(KELVIN_SYMBOL)) {
 			return KELVIN;
 		}
-		return fromChar(s.charAt(0));
+		else if(s.length() > 0) {
+			return fromChar(s.charAt(0));
+		}
+		return null;
 	}
 
 	@Override
